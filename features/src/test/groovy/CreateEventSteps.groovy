@@ -1,22 +1,38 @@
-import cucumber.api.PendingException
-
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
-Given(~'^I am on the main page$') { ->
-    // Express the Regexp above with the code you wish you had
-    throw new PendingException()
+class EventDetails {
+
+    String eventName = ""
 }
 
-When(~'I fill in event details$') { ->
-    throw new PendingException()
+class World {}
+
+World {
+    World.mixin SeleniumWebDriver, EventDetails
+    new World()
 }
 
-When(~'^I submit$') { ->
-    throw new PendingException()
+Before {
+    startBrowser('http://localhost:3000')
+}
+
+After {
+    quitBrowser()
+}
+
+Given(~'^I am on the home page$') { ->
+    gotoUrl('/')
+}
+
+When(~'I submit event details$') { ->
+    eventName = 'dinner'
+    findElement('event_name').sendKeys(eventName)
+    findElement('event_description').sendKeys('kuku\'s dinner')
+    findElement('event_name').submit()
 }
 
 Then(~'^I should see the event in the events list$') { ->
-    throw new PendingException()
+    assertTrue(getPageSource().contains(eventName))
 
 }
