@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'idea'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.1.4.RELEASE'
+    compile 'org.springframework:spring-context:4.1.4.RELEASE'
+    testCompile 'junit:junit:4.12'
+
+}
+ 
