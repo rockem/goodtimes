@@ -1,9 +1,19 @@
 apply plugin: 'idea'
-
+apply plugin: 'jetty'
 
 repositories {
     mavenCentral()
 }
+
+
+evaluationDependsOn(':backend')
+
+task runJetty(type:Test) {
+    jettyRunWar.daemon = true
+    jettyRunWar.execute()
+}
+
+cucumber.dependsOn runJetty
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2'

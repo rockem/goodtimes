@@ -14,7 +14,7 @@ World {
 }
 
 Before {
-    startBrowser('http://localhost:3000')
+    startBrowser('http://localhost')
 }
 
 After {
@@ -27,9 +27,9 @@ Given(~'^I am on the home page$') { ->
 
 When(~'I submit event details$') { ->
     eventName = 'dinner'
-    findElement('event_name').sendKeys(eventName)
-    findElement('event_description').sendKeys('kuku\'s dinner')
-    findElement('event_name').submit()
+    findElementById('event_name').sendKeys(eventName)
+    findElementById('event_description').sendKeys('kuku\'s dinner')
+    findElementById('event_name').submit()
 }
 
 Then(~'^I should see the event in the events list$') { ->

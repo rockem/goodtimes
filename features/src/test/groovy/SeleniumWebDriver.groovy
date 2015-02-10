@@ -16,12 +16,12 @@ class SeleniumWebDriver {
         driver.quit()
     }
 
-    def gotoUrl(url) {
+    def gotoUrl(String url) {
         driver.get("${domain}${url}")
     }
 
-    def findElement(name) {
-        driver.findElement(By.name(name))
+    def findElementById(String id) {
+        driver.findElement(By.id(id))
     }
 
 }
