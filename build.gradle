@@ -1,22 +1,32 @@
+apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'jetty'
+apply plugin: 'war'
 
 repositories {
     mavenCentral()
 }
 
 
-evaluationDependsOn(':backend')
+task cucumber << {
 
-task runJetty(type:Test) {
-    jettyRunWar.daemon = true
-    jettyRunWar.execute()
 }
 
-cucumber.dependsOn runJetty
+evaluationDependsOn(':features')
+evaluationDependsOn(':backend')
+
+project(':backend').jettyRun.daemon = true
+cucumber.dependsOn project(':backend').jettyRun
+
+//cucumber.dependsOn jettyRun
+
+project(':features').cucumber.mustRunAfter cucumber
+
+dependencies {
+    runtime project (':backend')
+}
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2'
 }
-
-

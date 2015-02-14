@@ -13,11 +13,11 @@ configurations {
 }
 
 task cucumber() {
-    dependsOn assemble
+    dependsOn build, compileTestGroovy
     doLast {
         javaexec {
             main = "cucumber.api.cli.Main"
-            classpath = configurations.cucumberRuntime
+            classpath = configurations.cucumberRuntime + sourceSets.test.output
             args = ['-f', 'pretty', '--glue', 'src/test/groovy', 'src/test/resources']
 
         }
