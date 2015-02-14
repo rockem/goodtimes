@@ -1,3 +1,6 @@
+import com.goodtimes.Application
+import org.springframework.boot.SpringApplication
+
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
@@ -14,11 +17,13 @@ World {
 }
 
 Before {
+    context = SpringApplication.run(Application.class)
     startBrowser('http://localhost')
 }
 
 After {
     quitBrowser()
+    context.close()
 }
 
 Given(~'^I am on the home page$') { ->

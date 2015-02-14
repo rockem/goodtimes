@@ -1,32 +1,68 @@
+buildscript {
+    repositories {
+        maven { url "https://repo.spring.io/libs-release" }
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE")
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'jetty'
-apply plugin: 'war'
+apply plugin: 'spring-boot'
+apply plugin: 'groovy'
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+task cucumber() {
+    dependsOn build, compileTestGroovy
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.test.output
+            args = ['-f', 'pretty', '--glue', 'src/test/groovy', 'src/test/resources']
+
+        }
+    }
+}
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    maven { url "https://repo.spring.io/libs-release" }
 }
-
-
-task cucumber << {
-
-}
-
-evaluationDependsOn(':features')
-evaluationDependsOn(':backend')
-
-project(':backend').jettyRun.daemon = true
-cucumber.dependsOn project(':backend').jettyRun
-
-//cucumber.dependsOn jettyRun
-
-project(':features').cucumber.mustRunAfter cucumber
 
 dependencies {
-    runtime project (':backend')
-}
+    // compile 'org.springframework:spring-webmvc:4.1.4.RELEASE'
+    // compile 'org.springframework:spring-context:4.1.4.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-web")
 
+    // Groovy library for groovy building!
+    compile 'org.codehaus.groovy:groovy-all:2.4.0'
+    /*
+   In order to work around a really flagrant bug ( http://issues.gradle.org/browse/GRADLE-732 )
+   You have to create a configuration that includes the jar.archivePath (the jar.archivePath is created by the java plugin)
+   and give it the same name as the cucumberRuntime configuration, or name it something different and have the cucumberRuntime
+   configuration extend from it as well.
+   VERY ANNOYING BUG
+    */
+    cucumberRuntime files("${jar.archivePath}")
+
+    testCompile 'org.seleniumhq.selenium:selenium-java:2.44.0'
+    testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.44.0'
+    testCompile 'junit:junit:4.11'
+    testCompile 'info.cukes:cucumber-junit:1.1.4'
+    testCompile 'info.cukes:cucumber-groovy:1.1.4'
+
+}
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
+    gradleVersion = '2.2.1'
 }
+ 
