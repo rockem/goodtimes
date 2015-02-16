@@ -63,9 +63,14 @@ dependencies {
     testCompile "org.mockito:mockito-core:1.+"
     testCompile 'info.cukes:cucumber-junit:1.1.4'
     testCompile 'info.cukes:cucumber-groovy:1.1.4'
-
-
 }
+
+task mongodb << {
+    "mkdir data".execute()
+    "mongod --dbpath data".execute()
+}
+
+bootRun.dependsOn mongodb
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2.1'
