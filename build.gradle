@@ -14,6 +14,10 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'groovy'
 
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 configurations {
     cucumberRuntime {
         extendsFrom testRuntime
@@ -71,6 +75,7 @@ task mongodb << {
 }
 
 bootRun.dependsOn mongodb
+cucumber.dependsOn mongodb
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2.1'

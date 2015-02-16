@@ -6,9 +6,16 @@ public class GoodtimeEvent {
     private String name;
     private String description;
 
+    private GoodtimeEvent() {}
+
     public GoodtimeEvent(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public GoodtimeEvent(Long id, String name, String description) {
+        this(name, description);
+        this.id = id;
     }
 
     public Long getId() {

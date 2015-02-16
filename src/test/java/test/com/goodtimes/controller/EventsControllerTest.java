@@ -1,6 +1,5 @@
 package test.com.goodtimes.controller;
 
-import com.goodtimes.Application;
 import com.goodtimes.entity.GoodtimeEvent;
 import com.goodtimes.repository.EventsRepository;
 import com.google.gson.Gson;
@@ -8,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.nio.charset.Charset;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,11 +26,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@ContextConfiguration(classes = TestContext.class)
+@ContextConfiguration(classes = {TestContext.class, WebAppContext.class})
 @WebAppConfiguration
-public class EventControllerTest {
+public class EventsControllerTest {
 
+    public static final GoodtimeEvent SAVED_EVENT = new GoodtimeEvent(2L, "kuku", "Kuku's dinner");
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
@@ -53,14 +52,17 @@ public class EventControllerTest {
 
     @Test
     public void shouldCreateNewEvent() throws Exception {
-        GoodtimeEvent gte = new GoodtimeEvent("kuku", "Kuku's dinner");
-        when(eventsRepository.save(gte)).thenReturn(new GoodtimeEvent("", ""));
+        GoodtimeEvent gte = new GoodtimeEvent(SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
+        when(eventsRepository.save(gte)).thenReturn(SAVED_EVENT);
 
         MvcResult result = this.mockMvc.perform(post("/events")
                 .contentType(contentType)
                 .content(new Gson().toJson(gte)))
                 .andExpect(status().isCreated()).andReturn();
 
+        String locationHeaders = result.getResponse().getHeaders("Location").get(0);
+        assertTrue("Location header should include link to newly created event",
+                locationHeaders.endsWith(SAVED_EVENT.getId().toString()));
         verify(eventsRepository).save(gte);
     }
 }
