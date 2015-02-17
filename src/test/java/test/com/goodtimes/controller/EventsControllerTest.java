@@ -55,7 +55,7 @@ public class EventsControllerTest {
         GoodtimeEvent gte = new GoodtimeEvent(SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
         when(eventsRepository.save(gte)).thenReturn(SAVED_EVENT);
 
-        MvcResult result = this.mockMvc.perform(post("/events")
+        MvcResult result = this.mockMvc.perform(post("/rest/events")
                 .contentType(contentType)
                 .content(new Gson().toJson(gte)))
                 .andExpect(status().isCreated()).andReturn();
