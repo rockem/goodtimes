@@ -26,13 +26,13 @@ targetCompatibility = 1.8
 // SCSS configuration
 compass {
     cssDir = file("src/main/resources/static/app/stylesheets")
-    sassDir = file("src/main/resources/static/app/stylesheets")
+    sassDir = file("src/main/sass")
 }
 
 sourceSets {
     main {
         resources {
-            excludes = ["**/*.scss", "**/.sass-cache"]
+            excludes = ["**/.sass-cache"]
         }
     }
 }
