@@ -16,11 +16,14 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'groovy'
 apply plugin: "com.github.robfletcher.compass"
+apply from: "cucumber.gradle"
 
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+
+// SCSS configuration
 compass {
     cssDir = file("src/main/resources/static/app/stylesheets")
     sassDir = file("src/main/resources/static/app/stylesheets")
@@ -33,24 +36,9 @@ sourceSets {
         }
     }
 }
+processResources.dependsOn compassCompile
 
-configurations {
-    cucumberRuntime {
-        extendsFrom testRuntime
-    }
-}
 
-task cucumber() {
-    dependsOn build, compileTestGroovy
-    doLast {
-        javaexec {
-            main = "cucumber.api.cli.Main"
-            classpath = configurations.cucumberRuntime + sourceSets.test.output
-            args = ['-f', 'pretty', '--glue', 'src/test/groovy', 'src/test/resources']
-
-        }
-    }
-}
 
 repositories {
     mavenLocal()
@@ -65,25 +53,10 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
     compile 'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE'
-
-    // Groovy library for groovy building!
-    compile 'org.codehaus.groovy:groovy-all:2.4.0'
     compile 'com.google.code.gson:gson:2.3.1'
-    /*
-   In order to work around a really flagrant bug ( http://issues.gradle.org/browse/GRADLE-732 )
-   You have to create a configuration that includes the jar.archivePath (the jar.archivePath is created by the java plugin)
-   and give it the same name as the cucumberRuntime configuration, or name it something different and have the cucumberRuntime
-   configuration extend from it as well.
-   VERY ANNOYING BUG
-    */
-    cucumberRuntime files("${jar.archivePath}")
-    testCompile 'org.springframework:spring-test:4.1.4.RELEASE'
-    testCompile 'org.seleniumhq.selenium:selenium-java:2.44.0'
-    testCompile 'org.seleniumhq.selenium:selenium-firefox-driver:2.44.0'
+
     testCompile 'junit:junit:4.11'
     testCompile "org.mockito:mockito-core:1.+"
-    testCompile 'info.cukes:cucumber-junit:1.1.4'
-    testCompile 'info.cukes:cucumber-groovy:1.1.4'
 }
 
 task mongodb << {
@@ -94,8 +67,6 @@ task mongodb << {
 bootRun.dependsOn mongodb
 cucumber.dependsOn mongodb
 
-//compassCompile.mustRunAfter compile
-processResources.dependsOn compassCompile
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2.1'
