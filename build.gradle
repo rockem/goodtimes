@@ -1,11 +1,13 @@
 buildscript {
     repositories {
-        maven { url "https://repo.spring.io/libs-release" }
         mavenLocal()
         mavenCentral()
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
+        classpath "com.github.robfletcher:compass-gradle-plugin:2.0.4"
     }
 }
 
@@ -13,10 +15,24 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'groovy'
+apply plugin: "com.github.robfletcher.compass"
 
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+compass {
+    cssDir = file("src/main/resources/static/app/stylesheets")
+    sassDir = file("src/main/resources/static/app/stylesheets")
+}
+
+sourceSets {
+    main {
+        resources {
+            excludes = ["**/*.scss", "**/.sass-cache"]
+        }
+    }
+}
 
 configurations {
     cucumberRuntime {
@@ -77,6 +93,9 @@ task mongodb << {
 
 bootRun.dependsOn mongodb
 cucumber.dependsOn mongodb
+
+//compassCompile.mustRunAfter compile
+processResources.dependsOn compassCompile
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.2.1'
