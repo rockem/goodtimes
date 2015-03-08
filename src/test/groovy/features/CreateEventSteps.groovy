@@ -1,3 +1,5 @@
+package features
+
 import com.goodtimes.Application
 import org.springframework.boot.SpringApplication
 

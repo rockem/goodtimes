@@ -1,33 +1,30 @@
 package test.com.goodtimes.controller;
 
+import com.goodtimes.controller.EventsController;
 import com.goodtimes.entity.GoodtimeEvent;
 import com.goodtimes.repository.EventsRepository;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class, WebAppContext.class})
-@WebAppConfiguration
 public class EventsControllerTest {
 
     public static final GoodtimeEvent SAVED_EVENT = new GoodtimeEvent(2L, "kuku", "Kuku's dinner");
@@ -37,17 +34,14 @@ public class EventsControllerTest {
             Charset.forName("utf8"));
 
     private MockMvc mockMvc;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Autowired
     private EventsRepository eventsRepository;
 
 
     @Before
     public void setup() throws Exception {
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+        eventsRepository = mock(EventsRepository.class);
+        EventsController controller = new EventsController(eventsRepository);
+        mockMvc = standaloneSetup(controller).build();
     }
 
     @Test
@@ -55,14 +49,31 @@ public class EventsControllerTest {
         GoodtimeEvent gte = new GoodtimeEvent(SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
         when(eventsRepository.save(gte)).thenReturn(SAVED_EVENT);
 
-        MvcResult result = this.mockMvc.perform(post("/rest/events")
-                .contentType(contentType)
-                .content(new Gson().toJson(gte)))
+        MvcResult result = postObjectToUrl(gte, "/rest/events")
                 .andExpect(status().isCreated()).andReturn();
 
         String locationHeaders = result.getResponse().getHeaders("Location").get(0);
         assertTrue("Location header should include link to newly created event",
                 locationHeaders.endsWith(SAVED_EVENT.getId().toString()));
-        verify(eventsRepository).save(gte);
+    }
+
+    private ResultActions postObjectToUrl(GoodtimeEvent gte, String url) throws Exception {
+        return this.mockMvc.perform(post(url)
+                .contentType(contentType)
+                .content(new Gson().toJson(gte)));
+    }
+
+    @Test
+    public void retrieveAllExistingEvents() throws Exception {
+        when(eventsRepository.findAll())
+                .thenReturn(Arrays.asList(SAVED_EVENT));
+
+        ResultActions result = mockMvc.perform(get("/rest/events"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.[0].id", is(SAVED_EVENT.getId().intValue())));
+                //.andExpect(jsonPath("$[0].name", is(SAVED_EVENT.getName())))
+                //.andExpect(jsonPath("$[0].description", is(SAVED_EVENT.getDescription())));
+
     }
 }

@@ -12,11 +12,10 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
-apply plugin: 'groovy'
 apply plugin: "com.github.robfletcher.compass"
-apply from: "cucumber.gradle"
+apply from: 'gradle/ide.gradle'
+apply from: "gradle/testing.gradle"
 
 
 sourceCompatibility = 1.8
@@ -48,15 +47,10 @@ repositories {
 }
 
 dependencies {
-    // compile 'org.springframework:spring-webmvc:4.1.4.RELEASE'
-    // compile 'org.springframework:spring-context:4.1.4.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
     compile 'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE'
     compile 'com.google.code.gson:gson:2.3.1'
-
-    testCompile 'junit:junit:4.11'
-    testCompile "org.mockito:mockito-core:1.+"
 }
 
 task mongodb << {
@@ -69,6 +63,6 @@ cucumber.dependsOn mongodb
 
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
+    gradleVersion = '2.3'
 }
  

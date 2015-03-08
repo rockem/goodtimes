@@ -12,12 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/rest/events")
 public class EventsController {
 
-    @Autowired
+    //@Autowired
     private EventsRepository eventsRepository;
+
+    @Autowired
+    public EventsController(EventsRepository eventsRepository) {
+        this.eventsRepository = eventsRepository;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<?> create(@RequestBody GoodtimeEvent event) {
@@ -29,5 +37,10 @@ public class EventsController {
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(saved_event.getId()).toUri());
         return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    List<GoodtimeEvent> findAll() {
+        return eventsRepository.findAll();
     }
 }
