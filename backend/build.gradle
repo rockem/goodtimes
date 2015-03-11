@@ -1,0 +1,61 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://repo.spring.io/libs-release" }
+        maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
+        classpath "com.github.robfletcher:compass-gradle-plugin:2.0.4"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: "com.github.robfletcher.compass"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+// SCSS configuration
+compass {
+    cssDir = file("src/main/resources/public/app/assets/stylesheets")
+    sassDir = file("src/main/resources/public/sass")
+}
+
+sourceSets {
+    main {
+        resources {
+            excludes = ["**/.sass-cache", "*.scss"]
+        }
+    }
+}
+processResources.dependsOn compassCompile
+
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven { url "https://repo.spring.io/libs-release" }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
+    compile 'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE'
+    compile 'com.google.code.gson:gson:2.3.1'
+
+    testCompile 'org.springframework:spring-test:4.1.4.RELEASE'
+    testCompile 'com.jayway.jsonpath:json-path:1.2.0'
+
+    testCompile 'junit:junit:4.11'
+    testCompile "org.mockito:mockito-core:1.+"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

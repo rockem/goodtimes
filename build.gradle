@@ -1,68 +1,6 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://repo.spring.io/libs-release" }
-        maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
-    }
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
-        classpath "com.github.robfletcher:compass-gradle-plugin:2.0.4"
-    }
-}
-
 apply plugin: 'java'
-apply plugin: 'spring-boot'
-apply plugin: "com.github.robfletcher.compass"
 apply from: 'gradle/ide.gradle'
-apply from: "gradle/testing.gradle"
-
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-
-// SCSS configuration
-compass {
-    cssDir = file("src/main/resources/static/app/stylesheets")
-    sassDir = file("src/main/sass")
-}
-
-sourceSets {
-    main {
-        resources {
-            excludes = ["**/.sass-cache"]
-        }
-    }
-}
-processResources.dependsOn compassCompile
-
-
-
-repositories {
-    mavenLocal()
-    mavenCentral()
-    jcenter()
-    maven { url "https://repo.spring.io/libs-release" }
-}
-
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
-    compile 'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE'
-    compile 'com.google.code.gson:gson:2.3.1'
-}
-
-task mongodb << {
-    "mkdir data".execute()
-    "mongod --dbpath data".execute()
-}
-
-bootRun.dependsOn mongodb
-cucumber.dependsOn mongodb
-
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
- 
