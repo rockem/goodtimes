@@ -32,11 +32,13 @@ task cucumber() {
             main = "cucumber.api.cli.Main"
             classpath = configurations.cucumberRuntime + sourceSets.test.output
             args = ['-f', 'pretty', '--glue', 'src/test/groovy', 'src/test/resources']
-
         }
     }
 }
 
+test {
+    systemProperty "spring.profiles.active", "test"
+}
 
 repositories {
     mavenLocal()
