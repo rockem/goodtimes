@@ -34,8 +34,6 @@ sourceSets {
 }
 processResources.dependsOn compassCompile
 
-
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -54,12 +52,6 @@ dependencies {
 
     testCompile 'junit:junit:4.11'
     testCompile "org.mockito:mockito-core:1.+"
-}
-
-bootRun {
-    if ( project.hasProperty('args') ) {
-        args project.args.split('\\s+')
-    }
 }
 
 task wrapper(type: Wrapper) {

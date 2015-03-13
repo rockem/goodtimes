@@ -22,7 +22,7 @@ World {
 
 Before {
     //context = SpringApplication.run(Application.class)
-    startBrowser('http://localhost:8888')
+    startBrowser('http://localhost:8888/app')
 }
 
 After {

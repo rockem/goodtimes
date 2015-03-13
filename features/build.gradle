@@ -47,10 +47,10 @@ repositories {
 }
 
 dependencies {
-    compile project(':backend')
+    testCompile project(':backend')
 
     // Groovy library for groovy building!
-    compile 'org.codehaus.groovy:groovy-all:2.4.1'
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.1'
     /*
    In order to work around a really flagrant bug ( http://issues.gradle.org/browse/GRADLE-732 )
    You have to create a configuration that includes the jar.archivePath (the jar.archivePath is created by the java plugin)

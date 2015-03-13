@@ -1,7 +1,7 @@
 resources:
   projectroot:
 server:
-  port: 8080
+  port: 8888
 mongo:
     url: "localhost"
-    db: "dev"
+    db: "test"
