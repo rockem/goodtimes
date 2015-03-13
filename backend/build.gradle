@@ -56,6 +56,12 @@ dependencies {
     testCompile "org.mockito:mockito-core:1.+"
 }
 
+bootRun {
+    if ( project.hasProperty('args') ) {
+        args project.args.split('\\s+')
+    }
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }

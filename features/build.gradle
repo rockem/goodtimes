@@ -1,6 +1,18 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://repo.spring.io/libs-release" }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
+    }
+}
+
+
 apply plugin: 'java'
 apply plugin: 'groovy'
-
+apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -33,6 +45,8 @@ repositories {
 }
 
 dependencies {
+    compile project(':backend')
+
     // Groovy library for groovy building!
     compile 'org.codehaus.groovy:groovy-all:2.4.1'
     /*
@@ -56,6 +70,8 @@ dependencies {
     testCompile 'junit:junit:4.11'
     testCompile "org.mockito:mockito-core:1.+"
 }
+
+bootRepackage.enabled = false
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'

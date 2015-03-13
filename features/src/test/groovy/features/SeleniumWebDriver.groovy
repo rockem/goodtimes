@@ -20,6 +20,7 @@ class SeleniumWebDriver {
 
     def gotoUrl(String url) {
         driver.get("${domain}${url}")
+        sleep(2000)
     }
 
     def findElementById(String id) {

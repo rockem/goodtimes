@@ -1,0 +1,25 @@
+server:
+  port: 8080
+mongo:
+    url: "localhost"
+    db: "dev"
+
+---
+
+spring:
+    profiles: production
+server:
+  port: 8080
+mongo:
+    url: "localhost"
+    db: gt
+
+---
+
+spring:
+    profiles: test
+server:
+  port: 8888
+mongo:
+    url: "localhost"
+    db: "test"
