@@ -73,7 +73,18 @@ dependencies {
     testCompile "org.mockito:mockito-core:1.+"
 }
 
+jar.enabled = false
 bootRepackage.enabled = false
+
+test {
+    exclude 'features/**'
+}
+
+task runFeatures(type:Test) {
+    jvmArgs '-Djava.awt.headless=false'
+    include 'features/**/'
+
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'

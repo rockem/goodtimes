@@ -19,7 +19,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private Environment env;
 
-    @Value("${resources.projectroot:}")
+    @Value("${resources.projectroot}")
     private String projectRoot;
 
     @Override
