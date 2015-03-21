@@ -83,7 +83,7 @@ test {
 }
 
 task runFeatures(type:Test) {
-    jvmArgs '-Djava.awt.headless=false'
+    //jvmArgs '-Djava.awt.headless=false'
     include 'features/**/'
 
 }
