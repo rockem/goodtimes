@@ -4,6 +4,7 @@
 angular.module('goodtimesApp', [
   'ngRoute',
   'goodtimesApp.createEvent',
+  'goodtimesApp.eventList',
   'goodtimesApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {

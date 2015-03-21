@@ -13,17 +13,17 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
-apply plugin: "com.github.robfletcher.compass"
+//apply plugin: "com.github.robfletcher.compass"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 
 // SCSS configuration
-compass {
-    cssDir = file("src/main/resources/public/app/assets/stylesheets")
-    sassDir = file("src/main/resources/public/sass")
-}
+//compass {
+//    cssDir = file("src/main/resources/public/app/assets/stylesheets")
+//    sassDir = file("src/main/resources/public/sass")
+//}
 
 sourceSets {
     main {
@@ -32,7 +32,7 @@ sourceSets {
         }
     }
 }
-processResources.dependsOn compassCompile
+//processResources.dependsOn compassCompile
 
 repositories {
     mavenLocal()
