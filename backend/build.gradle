@@ -36,11 +36,15 @@ dependencies {
     testCompile "org.mockito:mockito-core:1.+"
 }
 
-task resolveNPMDependencies << {
-    ant.exec(executable: 'npm',
-            failonerror: true) {
-        ant.arg(value: 'install')
-        ant.arg(value: '--silent')
+task resolveNPMDependencies(type:Exec) {
+    workingDir 'src/main/resources/public'
+
+    def os = System.getProperty("os.name").toLowerCase()
+    if (os.contains("windows"))
+    {
+        commandLine "cmd", "/c", "npm", "install"
+    }  else { // assume Linux
+        commandLine "npm", "install"
     }
 }
 assemble.dependsOn resolveNPMDependencies
