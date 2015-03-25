@@ -12,5 +12,4 @@ angular.module('goodtimesApp.createEvent', ['ngRoute'])
     .controller('CreateEventCtrl', function ($scope) {
         $scope.eventForm = {};
         $scope.eventForm.name = "Eli";
-
     });
