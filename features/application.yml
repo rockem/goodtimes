@@ -4,4 +4,4 @@ server:
   port: 8888
 mongo:
     url: "localhost"
-    db: "test"
+    db: "goodtimes_test"

@@ -3,7 +3,7 @@
 angular.module('goodtimesApp.eventList', ['ngRoute','ngResource'])
 
     .factory("Events", function ($resource) {
-        return $resource("/rest/events");
+        return $resource("/api/events");
     })
 
     .config(['$routeProvider', function ($routeProvider) {

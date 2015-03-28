@@ -1,4 +1,4 @@
-package test.com.goodtimes.controller;
+package test.com.goodtimes.events;
 
 import com.goodtimes.events.EventsController;
 import com.goodtimes.events.GoodtimeEvent;
@@ -49,7 +49,7 @@ public class EventsControllerTest {
         GoodtimeEvent gte = new GoodtimeEvent(SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
         when(eventsRepository.save(gte)).thenReturn(SAVED_EVENT);
 
-        MvcResult result = postObjectToUrl(gte, "/rest/events")
+        MvcResult result = postObjectToUrl(gte, "/api/events")
                 .andExpect(status().isCreated()).andReturn();
 
         String locationHeaders = result.getResponse().getHeaders("Location").get(0);
@@ -68,7 +68,7 @@ public class EventsControllerTest {
         when(eventsRepository.findAll())
                 .thenReturn(Arrays.asList(SAVED_EVENT));
 
-        ResultActions result = mockMvc.perform(get("/rest/events"))
+        ResultActions result = mockMvc.perform(get("/api/events"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.[0].id", is(SAVED_EVENT.getId().intValue())));

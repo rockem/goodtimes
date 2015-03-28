@@ -22,7 +22,7 @@ idea {
 allprojects {
     idea {
         module {
-            excludeDirs += file('build')
+            excludeDirs += [file('build'), file('data'), file('log')]
         }
     }
 }

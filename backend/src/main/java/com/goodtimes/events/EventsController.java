@@ -13,10 +13,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/events")
+@RequestMapping("/api/events")
 public class EventsController {
 
-    //@Autowired
     private EventsRepository eventsRepository;
 
     @Autowired
