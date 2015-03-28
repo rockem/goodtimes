@@ -1,4 +1,4 @@
-package com.goodtimes.entity;
+package com.goodtimes.events;
 
 public class GoodtimeEvent {
 

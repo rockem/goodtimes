@@ -1,7 +1,5 @@
-package com.goodtimes.controller;
+package com.goodtimes.events;
 
-import com.goodtimes.entity.GoodtimeEvent;
-import com.goodtimes.repository.EventsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

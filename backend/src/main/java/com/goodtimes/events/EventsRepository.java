@@ -1,8 +1,7 @@
-package com.goodtimes.repository;
+package com.goodtimes.events;
 
-import com.goodtimes.entity.GoodtimeEvent;
+import com.goodtimes.events.GoodtimeEvent;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * Created by rockem on 16/2/15.

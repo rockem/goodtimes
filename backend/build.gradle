@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
+    //compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.data:spring-data-jpa:1.7.2.RELEASE'
     compile 'org.springframework.data:spring-data-mongodb:1.6.2.RELEASE'
     compile 'com.google.code.gson:gson:2.3.1'
@@ -38,17 +39,45 @@ dependencies {
 
 task resolveNPMDependencies(type:Exec) {
     workingDir 'src/main/resources/public'
-
-    def os = System.getProperty("os.name").toLowerCase()
-    if (os.contains("windows"))
-    {
-        commandLine "cmd", "/c", "npm", "install"
-    }  else { // assume Linux
-        commandLine "npm", "install"
-    }
+    commandLine "npm", "install"
 }
 assemble.dependsOn resolveNPMDependencies
 
+def getArgsFor(String... args) {
+    def os = System.getProperty("os.name").toLowerCase()
+    if (os.contains("windows"))
+    {
+        return ["cmd", "/c"] + args
+    }  else { // assume Linux
+        return args
+    }
+}
+
+def mongoPort = 27017
+
+task startMongo << {
+    startMongoDB(mongoPort)
+    println "MongoDB started on port $mongoPort"
+}
+
+def startMongoDB(mongoPort) {
+    exec {
+        workingDir projectDir
+        commandLine getArgsFor("mongod", "--config", "mongodb.yml", "--port", "$mongoPort")
+    }
+}
+
+task stopMongo << {
+    stopMongoDB(mongoPort)
+    println "MongoDB stopped on port $mongoPort"
+}
+
+def stopMongoDB(mongoPort) {
+    exec {
+        workingDir projectDir
+        commandLine getArgsFor("mongo", "--port", "$mongoPort", "--eval", "db.getSiblingDB('admin').shutdownServer()")
+    }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'

@@ -1,8 +1,8 @@
 package test.com.goodtimes.controller;
 
-import com.goodtimes.controller.EventsController;
-import com.goodtimes.entity.GoodtimeEvent;
-import com.goodtimes.repository.EventsRepository;
+import com.goodtimes.events.EventsController;
+import com.goodtimes.events.GoodtimeEvent;
+import com.goodtimes.events.EventsRepository;
 import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
