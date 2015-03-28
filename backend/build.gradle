@@ -7,32 +7,14 @@ buildscript {
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
-        classpath "com.github.robfletcher:compass-gradle-plugin:2.0.4"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
-//apply plugin: "com.github.robfletcher.compass"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-
-// SCSS configuration
-//compass {
-//    cssDir = file("src/main/resources/public/app/assets/stylesheets")
-//    sassDir = file("src/main/resources/public/sass")
-//}
-
-sourceSets {
-    main {
-        resources {
-            excludes = ["**/.sass-cache", "*.scss"]
-        }
-    }
-}
-//processResources.dependsOn compassCompile
 
 repositories {
     mavenLocal()
@@ -53,6 +35,20 @@ dependencies {
     testCompile 'junit:junit:4.11'
     testCompile "org.mockito:mockito-core:1.+"
 }
+
+task resolveNPMDependencies(type:Exec) {
+    workingDir 'src/main/resources/public'
+
+    def os = System.getProperty("os.name").toLowerCase()
+    if (os.contains("windows"))
+    {
+        commandLine "cmd", "/c", "npm", "install"
+    }  else { // assume Linux
+        commandLine "npm", "install"
+    }
+}
+assemble.dependsOn resolveNPMDependencies
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
