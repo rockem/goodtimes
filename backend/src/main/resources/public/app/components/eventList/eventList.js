@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('goodtimesApp.eventList', [])
+angular.module('goodtimesApp.eventList', ['ngRoute','ngResource'])
+
+    .factory("Events", function ($resource) {
+        return $resource("/rest/events");
+    })
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/event-list', {
@@ -9,7 +13,6 @@ angular.module('goodtimesApp.eventList', [])
         });
     }])
 
-    .controller('EventListCtrl', function ($scope) {
-        $scope.formData = {};
-        $scope.formData.events = events;
+    .controller('EventListCtrl', function ($scope, Events) {
+         $scope.events = Events.query();
     });
