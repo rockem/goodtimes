@@ -16,6 +16,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/app/");
 //    }
+
     @Autowired
     private Environment env;
 
@@ -24,7 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/app/index.html");
+        registry.addViewController("/app/").setViewName("forward:/app/index.html");
     }
 
     @Override

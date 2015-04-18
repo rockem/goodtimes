@@ -8,7 +8,7 @@ World {
 }
 
 Before {
-    browser.startBrowser('http://localhost:8888/')
+    browser.startBrowser('http://localhost:8888/app')
 }
 
 After {

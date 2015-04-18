@@ -3,5 +3,5 @@ resources:
 server:
   port: 8888
 mongo:
-    url: "localhost"
+    url: "localhost:27018"
     db: "goodtimes_test"

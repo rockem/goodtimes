@@ -31,5 +31,9 @@ class SeleniumWebDriver {
         driver.findElement(By.name(name))
     }
 
+    def getPageSource() {
+        driver.getPageSource()
+    }
+
 
 }

@@ -53,9 +53,11 @@ def getArgsFor(String... args) {
     }
 }
 
-def mongoPort = 27017
+    def mongoPort = 27017
 
 task startMongo << {
+    mkdir "data"
+    mkdir "log"
     startMongoDB(mongoPort)
     println "MongoDB started on port $mongoPort"
 }
@@ -77,6 +79,23 @@ def stopMongoDB(mongoPort) {
         workingDir projectDir
         commandLine getArgsFor("mongo", "--port", "$mongoPort", "--eval", "db.getSiblingDB('admin').shutdownServer()")
     }
+}
+
+task createApplicationYml {
+    def defaultYml = "application.yml.default"
+    def ymlTarget = "$buildDir/$defaultYml"
+    outputs.file file(ymlTarget)
+    doLast {
+        copy {
+            from "$projectDir/src/main/resources/application.yml"
+            into buildDir
+            rename "application.yml", defaultYml
+        }
+    }
+}
+
+applicationDistribution.from(createApplicationYml) {
+    into "bin"
 }
 
 task wrapper(type: Wrapper) {
