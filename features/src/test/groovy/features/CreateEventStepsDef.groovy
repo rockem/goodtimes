@@ -8,7 +8,7 @@ World {
 }
 
 Before {
-    browser.startBrowser('http://localhost:8888/app')
+    browser.startBrowser('http://localhost:4123/app')
 }
 
 After {
@@ -20,10 +20,7 @@ Given(~'^I am on the home page$') { ->
 }
 
 When(~'I submit event details$') { ->
-    eventName = 'dinner'
-    browser.findElementByName('name').sendKeys(eventName)
-    browser.findElementByName('description').sendKeys('kuku\'s dinner')
-    browser.findElementByName('name').submit()
+    browser.submitForm(['name': 'dinner', 'description': 'kuku\'s dinner'])
 }
 
 Then(~'^I should see the event in the events list$') { ->
