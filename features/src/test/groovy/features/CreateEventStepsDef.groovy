@@ -22,7 +22,7 @@ Given(~'^I am on the home page$') { ->
 }
 
 When(~'I submit event details$') { ->
-    browser.submitForm(['name': 'dinner', 'description': 'kuku\'s dinner'])
+    browser.submitForm(['event-name': 'dinner', 'event-description': 'kuku\'s dinner'])
 }
 
 Then(~'^I should see the event in the events list$') { ->

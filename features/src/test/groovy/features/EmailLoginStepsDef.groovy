@@ -17,6 +17,7 @@ When(~/^I submit my credentials$/) { ->
 }
 
 When(~/^I submit my credentials$/) { ->
+    browser.submitForm(['username': username, 'password': password])
 }
 
 Then(~/^I should be logged in$/) { ->
