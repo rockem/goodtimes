@@ -1,4 +1,4 @@
-package features
+package features.support
 
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -33,6 +33,13 @@ class SeleniumWebDriver {
 
     def getPageSource() {
         driver.getPageSource()
+    }
+
+    def submitForm(def values) {
+        values.each { k, v ->
+            findElementByName(k).sendKeys(v)
+        }
+        browser.findElementByName(values.keySet().toList().first()).submit()
     }
 
 

@@ -1,8 +1,14 @@
 package features
 
+import features.common.GoodtimesClient
+import features.support.SeleniumWebDriver
+
 class GoodtimesWorld {
 
-    def browser = new SeleniumWebDriver()
+    GoodtimesClient goodtimesClient = new GoodtimesClient('http://localhost:4123/')
 
+    SeleniumWebDriver browser = new SeleniumWebDriver()
+
+    Map context = new HashMap()
 
 }
