@@ -1,4 +1,4 @@
-package com.goodtimes;
+package com.goodtimes.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +25,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/app/").setViewName("forward:/app/index.html");
+        registry.addViewController("/").setViewName("forward:/index.html");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         boolean devMode = this.env.acceptsProfiles("development");
 
-        String location = devMode ? "file:///" + getProjectRootRequired()  + "/src/main/resources/public/" :"classpath:public/";
+        String location = devMode ? "file:///" + getProjectRootRequired()  + "/src/main/resources/public/app/" :"classpath:public/app/";
         Integer cachePeriod = devMode ? 0 : null;
 
         registry.addResourceHandler("/**")

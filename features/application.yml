@@ -1,7 +1,7 @@
 resources:
   projectroot:
 server:
-  port: 8888
+  port: 4123
 mongo:
     url: "localhost:27018"
     db: "goodtimes_test"
