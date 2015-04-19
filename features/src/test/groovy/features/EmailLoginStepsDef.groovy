@@ -1,5 +1,7 @@
 package features
 
+import cucumber.api.PendingException
+
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
