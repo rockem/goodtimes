@@ -35,5 +35,12 @@ class SeleniumWebDriver {
         driver.getPageSource()
     }
 
+    def submitForm(def values) {
+        values.each { k, v ->
+            findElementByName(k).sendKeys(v)
+        }
+        browser.findElementByName(values.keySet().toList().first()).submit()
+    }
+
 
 }
