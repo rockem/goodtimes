@@ -6,7 +6,6 @@ this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
 Given(~/^I'm not logged in$/) { ->
-    throw new PendingException()
 }
 
 Given(~/^I'm a registered user$/) { ->
@@ -17,7 +16,8 @@ When(~/^I submit my credentials$/) { ->
     browser.submitForm(['username': username, 'password': password])
 }
 
+When(~/^I submit my credentials$/) { ->
+}
+
 Then(~/^I should be logged in$/) { ->
-    // Write code here that turns the phrase above into concrete actions
-    throw new PendingException()
 }
