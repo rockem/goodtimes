@@ -1,5 +1,6 @@
 Feature: Email Login
 
+  @wip
   Scenario: Login with username/password
     Given I'm not logged in
     And I'm a registered user
