@@ -21,12 +21,12 @@ Given(~'^I am on the home page$') { ->
 
 When(~'I submit event details$') { ->
     eventName = 'dinner'
-    browser.findElementByName('name').sendKeys(eventName)
-    browser.findElementByName('description').sendKeys('kuku\'s dinner')
-    browser.findElementByName('name').submit()
+    browser.findElementByName('event-name').sendKeys(eventName)
+    browser.findElementByName('event-description').sendKeys('kuku\'s dinner')
+    browser.findElementByName('event-name').submit()
 }
 
 Then(~'^I should see the event in the events list$') { ->
-    assertTrue(browser.getPageSource().contains(eventName))
+    assert browser.getPageSource().contains(eventName)
 
 }
