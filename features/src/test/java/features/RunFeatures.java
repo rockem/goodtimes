@@ -1,6 +1,7 @@
 package features;
 
 import com.goodtimes.Application;
+import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @RunWith(Cucumber.class)
+@CucumberOptions(tags="@wip")
 public class RunFeatures {
 
     static ConfigurableApplicationContext backend;
