@@ -1,4 +1,4 @@
-package features.common
+package features.support
 
 /**
  * Created by rockem on 3/4/15.

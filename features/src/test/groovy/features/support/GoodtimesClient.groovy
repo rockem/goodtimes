@@ -1,4 +1,4 @@
-package features.common
+package features.support
 
 import groovyx.net.http.RESTClient
 
@@ -12,8 +12,9 @@ class GoodtimesClient {
 
     def createUser(String username, String password, String email) {
         def response = client.post(
-                path: '/api/users',
-                'body': [username: username, password: password, email: email]
+                path: "/api/users",
+                body: [username: username, password: password, email: email],
+                requestContentType : "application/json"
         )
         assert response.status == 201
     }
