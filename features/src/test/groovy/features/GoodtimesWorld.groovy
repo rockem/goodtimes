@@ -1,6 +1,6 @@
 package features
 
-import features.support.GoodtimesClient
+import features.common.GoodtimesClient
 import features.support.SeleniumWebDriver
 
 class GoodtimesWorld {
@@ -10,6 +10,4 @@ class GoodtimesWorld {
     SeleniumWebDriver browser = new SeleniumWebDriver()
 
     Map context = new HashMap()
-
-
 }
