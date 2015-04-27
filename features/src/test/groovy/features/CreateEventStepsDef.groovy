@@ -3,6 +3,8 @@ package features
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
+eventName = 'dinner'
+
 World {
     new GoodtimesWorld()
 }
@@ -20,13 +22,13 @@ Given(~'^I am on the home page$') { ->
 }
 
 When(~'I submit event details$') { ->
-    eventName = 'dinner'
     browser.findElementByName('event-name').sendKeys(eventName)
-    browser.findElementByName('event-description').sendKeys('kuku\'s dinner')
+    browser .findElementByName('event-description').sendKeys('kuku\'s dinner')
     browser.findElementByName('event-name').submit()
+    sleep(3000)
 }
 
 Then(~'^I should see the event in the events list$') { ->
-    assert browser.getPageSource().contains('dinner')
+    assert browser.getPageSource().contains(eventName)
 
 }

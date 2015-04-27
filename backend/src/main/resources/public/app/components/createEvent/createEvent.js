@@ -5,6 +5,7 @@ angular.module('goodtimesApp.createEvent', ['ngRoute', 'ngResource'])
     .factory('Events', function ($resource) {
         return $resource('/api/events');
     })
+
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/create-event', {
             templateUrl: 'components/createEvent/createEvent.html',
