@@ -53,7 +53,7 @@ def getArgsFor(String... args) {
     }
 }
 
-    def mongoPort = 27017
+def mongoPort = 27017
 
 task startMongo << {
     mkdir "data"

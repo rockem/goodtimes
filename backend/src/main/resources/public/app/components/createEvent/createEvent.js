@@ -2,7 +2,7 @@
 
 angular.module('goodtimesApp.createEvent', ['ngRoute', 'ngResource'])
 
-    .factory('Event', function ($resource) {
+    .factory('Events', function ($resource) {
         return $resource('/api/events');
     })
     .config(['$routeProvider', function ($routeProvider) {
@@ -12,14 +12,13 @@ angular.module('goodtimesApp.createEvent', ['ngRoute', 'ngResource'])
         });
     }])
 
-    .controller('CreateEventCtrl', function (Event, $scope, $location) {
+    .controller('CreateEventCtrl', function ($scope, $location, Events) {
         $scope.eventForm = {};
-        $scope.createEvent = function(Events, $location){
-            Event.save($scope.eventForm).then(function($location) {
-                    $location.path('/event-list');
-
-                }, function(){
-                    console.error('-----------> Failed to save a new event :(');
-                });
+        $scope.createEvent = function () {
+            Events.save($scope.eventForm, function () {
+                console.error("WTF?????");
+                //$location.path('/event-list');
+                //if(!$scope.$$phase) $scope.$apply()
+            });
         }
     });
