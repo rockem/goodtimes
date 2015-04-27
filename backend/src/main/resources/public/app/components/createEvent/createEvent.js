@@ -12,13 +12,14 @@ angular.module('goodtimesApp.createEvent', ['ngRoute', 'ngResource'])
         });
     }])
 
-    .controller('CreateEventCtrl', function ($scope, $location, Events) {
+    .controller('CreateEventCtrl', function (Events, $scope, $location) {
         $scope.eventForm = {};
-        $scope.createEvent = function () {
-            Events.save($scope.eventForm, function () {
-                console.error("WTF?????");
-                //$location.path('/event-list');
-                //if(!$scope.$$phase) $scope.$apply()
-            });
+        $scope.createEvent = function(){
+            Events.save($scope.eventForm, function() {
+                    $location.path('/event-list');
+
+                }, function(){
+                    console.error('-----------> Failed to save a new event :(');
+                });
         }
     });
