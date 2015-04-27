@@ -1,8 +1,10 @@
 package com.goodtimes.events;
 
+import java.math.BigInteger;
+
 public class GoodtimeEvent {
 
-    private Long id;
+    private BigInteger id;
     private String name;
     private String description;
 
@@ -13,16 +15,16 @@ public class GoodtimeEvent {
         this.description = description;
     }
 
-    public GoodtimeEvent(Long id, String name, String description) {
+    public GoodtimeEvent(BigInteger id, String name, String description) {
         this(name, description);
         this.id = id;
     }
 
-    public Long getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 

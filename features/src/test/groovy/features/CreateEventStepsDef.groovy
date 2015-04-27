@@ -27,6 +27,6 @@ When(~'I submit event details$') { ->
 }
 
 Then(~'^I should see the event in the events list$') { ->
-    assert browser.getPageSource().contains(eventName)
+    assert browser.getPageSource().contains('dinner')
 
 }

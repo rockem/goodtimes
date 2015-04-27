@@ -1,11 +1,8 @@
 <div>
-	<form>
-        Name: <label>
-		<input type="text" name="event-name" ng-model="eventForm.name"/>
-	</label><br/>
-		Description: <label>
-		<input type="text" name="event-description" ng-model="eventForm.description"/>
-	</label>
-		<input type="submit" value="Create"/>
-	</form>
+    <form ng-submit="createEvent()">
+        Name: <input type="text" name="event-name" ng-model="eventForm.name"><br/>
+        Description: <input type="text" name="event-description" ng-model="eventForm.description"></br>
+        <input type="submit" value="Create">
+    </form>
 </div>
+

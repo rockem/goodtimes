@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 public class EventsControllerTest {
 
-    public static final GoodtimeEvent SAVED_EVENT = new GoodtimeEvent(2L, "kuku", "Kuku's dinner");
+    public static final GoodtimeEvent SAVED_EVENT = new GoodtimeEvent(BigInteger.valueOf(2L), "kuku", "Kuku's dinner");
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
