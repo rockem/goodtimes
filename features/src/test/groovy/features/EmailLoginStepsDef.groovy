@@ -19,10 +19,6 @@ When(~/^I submit my credentials$/) { ->
     browser.submitForm(['username': context.get(USERNAME), 'password': context.get(PASSWORD)])
 }
 
-When(~/^I submit my credentials$/) { ->
-    browser.submitForm(['username': username, 'password': password])
-}
-
 Then(~/^I should be logged in$/) { ->
     assertTrue(browser.getPageSource().contains("Log out"))
 }
