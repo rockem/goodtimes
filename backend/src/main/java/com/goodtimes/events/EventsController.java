@@ -24,7 +24,7 @@ public class EventsController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<?> create(@RequestBody GoodtimeEvent event) {
+    public ResponseEntity<?> create(@RequestBody GoodtimeEvent event) {
         GoodtimeEvent saved_event = eventsRepository.save(event);
 
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -36,7 +36,7 @@ public class EventsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    List<GoodtimeEvent> findAll() {
+    public List<GoodtimeEvent> findAll() {
         return eventsRepository.findAll();
     }
 }
