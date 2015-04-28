@@ -7,7 +7,7 @@ String USERNAME = 'username'
 String PASSWORD = 'password'
 
 Given(~/^I'm not logged in$/) { ->
-    
+
 }
 
 Given(~/^I'm a registered user$/) { ->
