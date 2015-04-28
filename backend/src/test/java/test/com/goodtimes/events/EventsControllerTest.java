@@ -19,7 +19,9 @@ import java.util.Arrays;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -47,6 +49,15 @@ public class EventsControllerTest {
     }
 
     @Test
+    public void shouldDeleteEvent() throws Exception {
+        when(eventsRepository.findAll()).thenReturn(Arrays.asList(SAVED_EVENT));
+        mockMvc.perform(
+                delete("/api/events/" + SAVED_EVENT.getId()))
+                .andExpect(status().isOk());
+        verify(eventsRepository).delete(SAVED_EVENT.getId());
+    }
+
+    @Test
     public void shouldCreateNewEvent() throws Exception {
         GoodtimeEvent gte = new GoodtimeEvent(SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
         when(eventsRepository.save(gte)).thenReturn(SAVED_EVENT);
@@ -70,12 +81,12 @@ public class EventsControllerTest {
         when(eventsRepository.findAll())
                 .thenReturn(Arrays.asList(SAVED_EVENT));
 
-        ResultActions result = mockMvc.perform(get("/api/events"))
+        mockMvc.perform(get("/api/events"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.[0].id", is(SAVED_EVENT.getId().intValue())));
-                //.andExpect(jsonPath("$[0].name", is(SAVED_EVENT.getName())))
-                //.andExpect(jsonPath("$[0].description", is(SAVED_EVENT.getDescription())));
+                .andExpect(jsonPath("$.[0].id", is(SAVED_EVENT.getId().intValue())))
+                .andExpect(jsonPath("$[0].name", is(SAVED_EVENT.getName())))
+                .andExpect(jsonPath("$[0].description", is(SAVED_EVENT.getDescription())));
 
     }
 }

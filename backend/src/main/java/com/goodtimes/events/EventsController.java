@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -33,6 +31,12 @@ public class EventsController {
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(saved_event.getId()).toUri());
         return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable final Long id) {
+        eventsRepository.delete(BigInteger.valueOf(id));
     }
 
     @RequestMapping(method = RequestMethod.GET)
