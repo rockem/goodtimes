@@ -12,6 +12,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RunWith(Cucumber.class)
 public class RunFeatures {
@@ -20,17 +22,27 @@ public class RunFeatures {
 
     private static final int mongoPort = 27018;
 
+    private static ExecutorService executor = Executors.newSingleThreadExecutor();
+    private static Process process;
+
     @BeforeClass
-    public static void startBackend() throws IOException {
+    public static void startBackend() {
         createDirsForMongoDB();
+        executor.submit(() -> {
+            try {
+                runProcessFor("mongod",
+                        "--config", "mongodb.yml",
+                        "--port", String.valueOf(mongoPort));
+            } catch (Exception e) {
+                System.exit(1);
+            }
+        });
         try {
-            runProcessFor("mongod",
-                    "--config", "mongodb.yml",
-                    "--port", String.valueOf(mongoPort));
-            backend = SpringApplication.run(Application.class);
-        } catch(ProcessInvocationException e) {
-            System.exit(1);
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        backend = SpringApplication.run(Application.class);
     }
 
     private static void createDirsForMongoDB() {
@@ -43,7 +55,7 @@ public class RunFeatures {
     }
 
     private static void runProcessFor(String... args) throws IOException {
-        Process process = new ProcessBuilder(args).start();
+        process = new ProcessBuilder(args).start();
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(process.getErrorStream()));
         String line;
@@ -60,9 +72,8 @@ public class RunFeatures {
     @AfterClass
     public static void stopBackend() throws Exception {
         backend.close();
-        runProcessFor("mongo",
-                "--port", String.valueOf(mongoPort),
-                "--eval", "db.getSiblingDB('admin').shutdownServer()");
+        process.destroy();
+        executor.shutdown();
     }
 
     private static class ProcessInvocationException extends RuntimeException {
