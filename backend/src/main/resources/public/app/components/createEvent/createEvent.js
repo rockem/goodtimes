@@ -1,10 +1,6 @@
 'use strict';
 
-angular.module('goodtimesApp.createEvent', ['ngRoute', 'ngResource'])
-
-    .factory('Events', function ($resource) {
-        return $resource('/api/events');
-    })
+angular.module('goodtimesApp.createEvent', ['goodtimesApp.eventService', 'ngRoute', 'ngResource'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/create-event', {

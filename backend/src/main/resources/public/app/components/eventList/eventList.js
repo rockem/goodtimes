@@ -1,10 +1,6 @@
 'use strict';
 
-angular.module('goodtimesApp.eventList', ['ngRoute','ngResource'])
-
-    .factory("Events", function ($resource) {
-        return $resource("/api/events");
-    })
+angular.module('goodtimesApp.eventList', ['goodtimesApp.eventService', 'ngRoute','ngResource'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/event-list', {
