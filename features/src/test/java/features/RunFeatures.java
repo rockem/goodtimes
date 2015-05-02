@@ -20,11 +20,11 @@ import java.util.concurrent.Executors;
 @CucumberOptions(tags="@wip")
 public class RunFeatures {
 
-    static ConfigurableApplicationContext backend;
-
+    public static final int SECOND = 1000;
     private static final int mongoPort = 27018;
 
     private static ExecutorService executor = Executors.newSingleThreadExecutor();
+    private static ConfigurableApplicationContext backend;
     private static Process process;
 
     @BeforeClass
@@ -40,7 +40,7 @@ public class RunFeatures {
             }
         });
         try {
-            Thread.sleep(5000);
+            Thread.sleep(5 * SECOND);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

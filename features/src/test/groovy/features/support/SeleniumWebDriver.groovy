@@ -23,6 +23,10 @@ class SeleniumWebDriver {
         sleep(2000)
     }
 
+    def currentUrl() {
+        driver.currentUrl.replace(domain, "")
+    }
+
     def findElementById(String id) {
         driver.findElement(By.id(id))
     }
@@ -39,7 +43,7 @@ class SeleniumWebDriver {
         values.each { k, v ->
             findElementByName(k).sendKeys(v)
         }
-        browser.findElementByName(values.keySet().toList().first()).submit()
+        driver.findElementByName(values.keySet().toList().first()).submit()
     }
 
 
