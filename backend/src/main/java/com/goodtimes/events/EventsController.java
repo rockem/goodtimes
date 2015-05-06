@@ -35,8 +35,8 @@ public class EventsController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable final Long id) {
-        eventsRepository.delete(BigInteger.valueOf(id));
+    public void delete(@PathVariable final BigInteger id) {
+        eventsRepository.delete(id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
