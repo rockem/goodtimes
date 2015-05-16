@@ -1,4 +1,4 @@
-package com.goodtimes;
+package com.goodtimes.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

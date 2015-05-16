@@ -1,5 +1,6 @@
 package com.goodtimes.users;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,14 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 public class UsersController {
 
+    private final UsersRepository usersRepository;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String findAll() {
-        return "Eli";
+    @Autowired
+    public UsersController(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> signup(@RequestBody String body) {
-        return new ResponseEntity<Object>(HttpStatus.CREATED);
+    public ResponseEntity<?> signup(@RequestBody User user) {
+        usersRepository.save(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

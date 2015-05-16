@@ -1,4 +1,4 @@
-package com.goodtimes;
+package com.goodtimes.config;
 
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;

@@ -1,4 +1,4 @@
-package com.goodtimes;
+package com.goodtimes.config;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
