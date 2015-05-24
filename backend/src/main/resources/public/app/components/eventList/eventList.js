@@ -1,14 +1,14 @@
 'use strict';
+(function () {
 
-angular.module('goodtimesApp.eventList', ['goodtimesApp.eventService', 'ngRoute','ngResource'])
-
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/event-list', {
-            templateUrl: 'components/eventList/eventList.html',
-            controller: 'EventListCtrl'
+    function EventListCtrl($scope, EventsApi) {
+        $scope.events = [];
+        EventsApi.getEvents().then(function(data) {
+            angular.copy(data, $scope.events);
         });
-    }])
+    }
 
-    .controller('EventListCtrl', function ($scope, Events) {
-         $scope.events = Events.query();
-    });
+    angular
+        .module('goodtimesApp.eventList', [])
+        .controller('EventListCtrl', EventListCtrl);
+})();

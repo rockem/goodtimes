@@ -9,5 +9,8 @@ angular.module('goodtimesApp', [
   'goodtimesApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/create-event'});
+        $routeProvider.when('/event-list', {
+            templateUrl: 'components/eventList/eventList.html'
+        });
+        $routeProvider.otherwise({redirectTo: '/create-event'});
 }]);
