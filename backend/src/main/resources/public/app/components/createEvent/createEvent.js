@@ -2,26 +2,16 @@
 
 (function () {
 
-    function CreateEventCtrl(Events, $scope, $location) {
+    function CreateEventCtrl($scope, $location, EventsApi) {
         $scope.eventForm = {};
         $scope.createEvent = function(){
-            Events.save($scope.eventForm, function() {
+            EventsApi.createEvent($scope.eventForm).then(function(eventData) {
                 $location.path('/event-list');
-
-            }, function(){
-                console.error('-----------> Failed to save a new event :(');
             });
-
         }
     }
 
     angular
         .module('goodtimesApp.createEvent', ['goodtimesApp.eventService'])
-        .config(['$routeProvider', function ($routeProvider) {
-            $routeProvider.when('/create-event', {
-                templateUrl: 'components/createEvent/createEvent.html',
-                controller: 'CreateEventCtrl'
-            });
-        }])
         .controller('CreateEventCtrl', CreateEventCtrl);
 })();

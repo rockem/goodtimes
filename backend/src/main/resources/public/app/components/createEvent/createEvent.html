@@ -1,5 +1,5 @@
 <h4>New Event</h4>
-<form ng-submit="createEvent()">
+<form ng-controller="CreateEventCtrl" ng-submit="createEvent()">
     <input placeholder="Event Name" class="form-control input-sm chat-input" type="text" name="event-name"
            ng-model="eventForm.name"><br/>
     <input placeholder="Event Description" class="form-control input-sm chat-input" type="text" name="event-description"

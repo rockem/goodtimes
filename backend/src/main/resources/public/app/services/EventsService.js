@@ -1,24 +1,19 @@
 'use strict';
 (function() {
+    var URL = '/api/events';
 
     function EventsApi($http) {
         this.getEvents = function() {
-            return $http.get('/api/events').then(function (response) {
+            return $http.get(URL).then(function (response) {
                 return response.data;
             });
+        };
+        this.createEvent = function(eventData) {
+            return $http.post(URL, eventData);
         };
     }
 
     angular
-        .module('goodtimesApp.eventService', ['ngResource'])
-        .factory('EventsApi', function ($http) {
-            return new EventsApi($http);
-        })
-        .factory('Events', function ($resource) {
-            return $resource('/api/events', {}, {
-                createEvent: function(data) {
-                    $resource.save(data);
-                }
-            });
-        });
+        .module('goodtimesApp.eventService', [])
+        .factory('EventsApi', function ($http) {return new EventsApi($http);});
 })();
