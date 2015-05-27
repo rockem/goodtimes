@@ -1,12 +1,12 @@
 package com.goodtimes.users;
 
+import com.goodtimes.support.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/users")
@@ -17,12 +17,20 @@ public class UsersController {
     @Autowired
     public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
-
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> signup(@RequestBody User user) {
-        usersRepository.save(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> signup(@RequestBody GoodtimesUser user) {
+        GoodtimesUser savedUser = usersRepository.save(user);
+        return new ResponseEntity<>(null,
+                HttpUtil.createPostHttpHeaders(savedUser.getId().toString()),
+                HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("username") String username) {
+        usersRepository.removeByUsername(username);
+    }
+
+
 }

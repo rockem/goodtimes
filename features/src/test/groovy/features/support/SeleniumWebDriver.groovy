@@ -40,10 +40,12 @@ class SeleniumWebDriver {
     }
 
     def submitForm(def values) {
+        sleep(20000)
         values.each { k, v ->
             findElementByName(k).sendKeys(v)
         }
         driver.findElementByName(values.keySet().toList().first()).submit()
+        sleep(30000)
     }
 
 

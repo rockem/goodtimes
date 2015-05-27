@@ -1,12 +1,10 @@
 package com.goodtimes.events;
 
+import com.goodtimes.support.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -25,15 +23,9 @@ public class EventsController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody GoodtimeEvent event) {
         GoodtimeEvent saved_event = eventsRepository.save(event);
-        return new ResponseEntity<>(null, createHttpHeaders(saved_event), HttpStatus.CREATED);
-    }
-
-    private HttpHeaders createHttpHeaders(GoodtimeEvent saved_event) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setLocation(
-                ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{id}").buildAndExpand(saved_event.getId()).toUri());
-        return httpHeaders;
+        return new ResponseEntity<>(null,
+                HttpUtil.createPostHttpHeaders(saved_event.getId().toString()),
+                HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

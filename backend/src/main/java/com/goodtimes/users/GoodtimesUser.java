@@ -5,23 +5,25 @@ import lombok.Getter;
 
 import java.math.BigInteger;
 
+@Getter
 @EqualsAndHashCode
-public class User {
+public class GoodtimesUser {
 
-    @Getter
     private BigInteger id;
-    @Getter
     private String username;
-    @Getter
     private String password;
-    @Getter
     private String email;
 
-    public User() {}
+    public GoodtimesUser() {}
 
-    public User(String user, String pass, String mail) {
+    public GoodtimesUser(String user, String pass, String mail) {
         this.username = user;
         this.password = pass;
         this.email = mail;
+    }
+
+    public GoodtimesUser(BigInteger id, String user, String pass, String mail) {
+        this(user, pass, mail);
+        this.id = id;
     }
 }

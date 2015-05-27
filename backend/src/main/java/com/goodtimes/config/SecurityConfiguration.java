@@ -1,5 +1,6 @@
 package com.goodtimes.config;
 
+import com.goodtimes.users.GoodtimesUserService;
 import com.goodtimes.users.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -14,7 +15,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
-//@Configuration
+@Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -32,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/components/login/login.html", "/index.html", "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
-                .antMatchers("/api/events").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/users/*").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .csrf().csrfTokenRepository(csrfTokenRepository());
@@ -46,6 +47,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(new GoodtimesUserService())
+        auth.userDetailsService(new GoodtimesUserService(usersRepository));
     }
 }

@@ -10,5 +10,5 @@ angular.module('goodtimesApp', [
     'goodtimesApp.version'
 ]).
     config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo: '/login'});
+        $routeProvider.otherwise({redirectTo: '/home'});
     }]);

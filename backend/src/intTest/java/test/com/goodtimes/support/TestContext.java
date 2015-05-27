@@ -1,4 +1,4 @@
-package it.com.goodtimes.support;
+package test.com.goodtimes.support;
 
 import com.goodtimes.events.EventsRepository;
 import com.goodtimes.users.UsersRepository;

@@ -1,13 +1,19 @@
-package it.com.goodtimes.events;
+package test.com.goodtimes.events;
 
 
 import com.goodtimes.events.EventsRepository;
 import com.goodtimes.events.GoodtimeEvent;
-import it.com.goodtimes.support.BaseIT;
-import it.com.goodtimes.support.MockMvcHelper;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import test.com.goodtimes.support.BaseMvcIT;
+import test.com.goodtimes.support.MockMvcHelper;
 import org.junit.Test;
 import org.mockito.internal.matchers.EndsWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import test.com.goodtimes.support.TestContext;
+import test.com.goodtimes.support.WebAppTestContext;
 
 import java.math.BigInteger;
 import java.util.Collections;
@@ -20,7 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-public class EventsControllerIT extends BaseIT {
+public class EventsControllerIT extends BaseMvcIT {
 
     public static final GoodtimeEvent SAVED_EVENT = new GoodtimeEvent(BigInteger.valueOf(2L), "kuku", "Kuku's dinner");
     public static final String API_EVENTS = "/api/events/";

@@ -1,4 +1,4 @@
-package it.com.goodtimes.support;
+package test.com.goodtimes.support;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

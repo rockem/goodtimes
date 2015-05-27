@@ -1,7 +1,6 @@
-package it.com.goodtimes.support;
+package test.com.goodtimes.support;
 
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,7 +14,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContext.class, WebAppTestContext.class})
 @WebAppConfiguration
-public class BaseIT {
+public abstract class BaseMvcIT {
 
     protected MockMvc mockMvc;
     @Autowired
@@ -26,8 +25,4 @@ public class BaseIT {
         mockMvc = webAppContextSetup(applicationContext).build();
     }
 
-    @Test
-    public void dummy() {
-        // Just to make JUnit happy
-    }
 }
