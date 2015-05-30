@@ -6,6 +6,9 @@ class GoodtimesWorld {
 
     SeleniumWebDriver browser = new SeleniumWebDriver()
 
-    Map context = new HashMap()
+    GoodtimesUser user = new GoodtimesUser(
+            username: "kuku",
+            password: "123456",
+            email: "k.k@gmail.com")
 
 }

@@ -11,7 +11,13 @@ World {
 }
 
 Before {
+    goodtimesClient.deleteUser(user.getUsername())
+    goodtimesClient.createUser(user)
     browser.startBrowser('http://localhost:4123')
+}
+
+Before("@LoggedIn") {
+    browser.logInWith(user)
 }
 
 After {

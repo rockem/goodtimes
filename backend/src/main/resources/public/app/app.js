@@ -7,8 +7,9 @@ angular.module('goodtimesApp', [
     'goodtimesApp.createEvent',
     'goodtimesApp.eventList',
     'goodtimesApp.login',
+    'goodtimesApp.home',
     'goodtimesApp.version'
-]).
-    config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo: '/home'});
-    }]);
+]);
+    //config(['$routeProvider', function ($routeProvider) {
+    //    $routeProvider.otherwise({redirectTo: '/'});
+    //}]);

@@ -40,12 +40,16 @@ class SeleniumWebDriver {
     }
 
     def submitForm(def values) {
-        sleep(20000)
         values.each { k, v ->
             findElementByName(k).sendKeys(v)
         }
         driver.findElementByName(values.keySet().toList().first()).submit()
-        sleep(30000)
+        sleep(2000)
+    }
+
+    def logInWith(GoodtimesUser user) {
+        this.gotoUrl(UrlHelper.getUrlForPage("login"))
+        this.submitForm(['login-username': user.getUsername(), 'login-password': user.getPassword()])
     }
 
 
