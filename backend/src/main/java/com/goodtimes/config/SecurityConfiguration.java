@@ -29,9 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and()
+        http.formLogin().loginPage("/login").and()
+                .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/components/login/login.html", "/index.html", "/", "/components/home/home.html").permitAll()
+                .antMatchers("/components/login/login.html",
+                        "/index.html",
+                        "/",
+                        "/components/home/home.html").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/users/*").hasAuthority("ADMIN")
                 .anyRequest().authenticated().and()

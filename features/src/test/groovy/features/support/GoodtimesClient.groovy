@@ -62,7 +62,6 @@ class GoodtimesClient {
                 path: '/api/events',
                 headers: [Authorization: "Basic $credentials", "X-XSRF-TOKEN": this.xsrfToken]
         )
-        //allEvents = 'http://localhost:8888/api/events'.toURL().text
 
         filterBy(response.body, name, desc).each {
             def r = client.delete(

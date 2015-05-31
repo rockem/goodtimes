@@ -45,7 +45,7 @@ public class EventsControllerIT extends BaseMvcIT {
 
     @Test
     public void shouldCreateNewEvent() throws Exception {
-        GoodtimeEvent gte = new GoodtimeEvent(SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
+        GoodtimeEvent gte = new GoodtimeEvent(null, SAVED_EVENT.getName(), SAVED_EVENT.getDescription());
         when(eventsRepository.save(gte)).thenReturn(SAVED_EVENT);
 
         new MockMvcHelper(mockMvc).postObjectToUrl(gte, API_EVENTS)
