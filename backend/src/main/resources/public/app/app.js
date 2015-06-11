@@ -4,7 +4,7 @@
 angular
     .module('goodtimesApp', [
         'ngRoute',
-        'ngResource',
+        'goodtimesApp.eventService',
         'goodtimesApp.createEvent',
         'goodtimesApp.eventList',
         'goodtimesApp.version'])
