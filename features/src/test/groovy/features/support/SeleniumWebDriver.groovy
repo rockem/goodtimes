@@ -1,6 +1,7 @@
 package features.support
 
 import org.openqa.selenium.By
+import org.openqa.selenium.ElementNotVisibleException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
@@ -52,5 +53,17 @@ class SeleniumWebDriver {
         this.submitForm(['login-username': user.getUsername(), 'login-password': user.getPassword()])
     }
 
+    def isElementByIdHidden(String id) {
+        driver.findElementById(id).getAttribute("class").contains("ng-hide")
+    }
+
+    def logOutIfNeeded() {
+        gotoUrl(UrlHelper.getUrlForPage("home"))
+        try {
+            findElementByName("logout").click()
+        } catch(ElementNotVisibleException e) {
+            // Swallow
+        }
+    }
 
 }

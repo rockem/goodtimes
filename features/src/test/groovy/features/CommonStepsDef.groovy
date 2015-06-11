@@ -14,6 +14,7 @@ Before {
     goodtimesClient.deleteUser(user.getUsername())
     goodtimesClient.createUser(user)
     browser.startBrowser('http://localhost:4123')
+    browser.logOutIfNeeded()
 }
 
 Before("@LoggedIn") {

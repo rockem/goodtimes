@@ -29,7 +29,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().loginPage("/login").and()
+        http.formLogin()
+                .loginPage("/login").and()
+                .logout().logoutUrl("/api/logout").and()
                 .httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/components/login/login.html",
@@ -38,9 +40,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/components/home/home.html").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/users/*").hasAuthority("ADMIN")
-                .anyRequest().authenticated().and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-                .csrf().csrfTokenRepository(csrfTokenRepository());
+                .anyRequest()
+                .authenticated().and()
+                .csrf().disable();
+//                .csrf().csrfTokenRepository(csrfTokenRepository()).and()
+//                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
     }
 
     private CsrfTokenRepository csrfTokenRepository() {

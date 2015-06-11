@@ -1,19 +1,20 @@
 package features
 
-import features.support.UrlHelper
-
 this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
 Given(~/^I'm not logged in$/) { ->
-    browser.gotoUrl(UrlHelper.getUrlForPage("home"))
-    assert browser.getPageSource().contains("Login")
+    // All tests start in logged out state
 }
 
 When(~/^I log in$/) { ->
     browser.logInWith(user)
 }
 
-Then(~/^I should be logged in$/) { ->
-    assert browser.getPageSource().contains("Log out")
+Then(~/^I should (not )?be logged in$/) { loggedIn ->
+    if(loggedIn == "not ") {
+        assert browser.isElementByIdHidden("logout_container"), "I'm not logged out"
+    } else {
+        assert browser.isElementByIdHidden("login_container"), "I'm not logged in"
+    }
 }

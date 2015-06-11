@@ -1,4 +1,4 @@
-<form ng-controller="LoginCtrl" ng-submit="login()">
+<form ng-controller="LoginCtrl as ctrl" ng-submit="ctrl.login()">
     <div class="form-group">
         <label for="login-username">Email address</label>
         <input type="text" class="form-control" id="login-username" name="login-username" ng-model="user.username" placeholder="Enter username">

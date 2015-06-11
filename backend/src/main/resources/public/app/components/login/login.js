@@ -2,27 +2,10 @@
 
 (function () {
 
-    function LoginCtrl($rootScope, $scope, $http, $location) {
-        var authenticate = function (user, callback) {
-            var headers = user ? {
-                authorization: "Basic "
-                + btoa(user.username + ":" + user.password)
-            } : {};
-
-            $http.get('/api/user', {headers: headers}).success(function (data) {
-                $rootScope.authenticated = !!data.name;
-                callback && callback();
-            }).error(function (error) {
-                $rootScope.authenticated = false;
-                callback && callback();
-            });
-
-        };
-
-        //authenticate();
+    function LoginCtrl($rootScope, $scope, AuthService, $location) {
         $scope.user = {};
-        $scope.login = function () {
-            authenticate($scope.user, function () {
+        this.login = function () {
+            AuthService.authenticate($scope.user, function () {
                 if ($rootScope.authenticated) {
                     $location.path("/");
                     $scope.error = false;
@@ -35,6 +18,6 @@
     }
 
     angular
-        .module('goodtimesApp.login', [])
+        .module('goodtimesApp.login', ['goodtimesApp.authService'])
         .controller('LoginCtrl', LoginCtrl);
 })();

@@ -78,5 +78,10 @@ class GoodtimesClient {
                 .findAll { it.name == name && it.description == desc }*.id
     }
 
+    def logout() {
+        def response = client.post(path: "/api/logout")
+        assert response.status == 200
+    }
+
 
 }
