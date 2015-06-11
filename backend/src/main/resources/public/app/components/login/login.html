@@ -1,0 +1,11 @@
+<form ng-controller="LoginCtrl as ctrl" ng-submit="ctrl.login()">
+    <div class="form-group">
+        <label for="login-username">Email address</label>
+        <input type="text" class="form-control" id="login-username" name="login-username" ng-model="user.username" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+        <label for="login-password">Password</label>
+        <input type="password" class="form-control" id="login-password" name="login-password" ng-model="user.password" placeholder="Enter password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

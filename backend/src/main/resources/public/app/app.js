@@ -4,13 +4,18 @@
 angular
     .module('goodtimesApp', [
         'ngRoute',
+        'goodtimesApp.navigation',
         'goodtimesApp.eventService',
         'goodtimesApp.createEvent',
         'goodtimesApp.eventList',
-        'goodtimesApp.version'])
+        'goodtimesApp.login'])
 
-    .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/event-list', {templateUrl: 'components/eventList/eventList.html'});
-        $routeProvider.when('/create-event', {templateUrl: 'components/createEvent/createEvent.html'});
-        $routeProvider.otherwise({redirectTo: '/create-event'});
-}]);
+    .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        $routeProvider
+            .when('/', {templateUrl: 'components/home/home.html'})
+            .when('/login', {templateUrl: 'components/login/login.html'})
+            .when('/event-list', {templateUrl: 'components/eventList/eventList.html'})
+            .when('/create-event', {templateUrl: 'components/createEvent/createEvent.html'})
+            .otherwise({redirectTo: '/create-event'});
+    }]);
