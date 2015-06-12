@@ -1,10 +1,10 @@
 'use strict';
 
-
-function LoginCtrl($rootScope, $scope, AuthService, $location) {
-    $scope.user = {};
+function LoginCtrl($rootScope, $scope, authService, $location) {
+    var username;
+    var password;
     this.login = function () {
-        AuthService.authenticate($scope.user, function () {
+        authService.authenticate({username: this.username, password:this.password}, function () {
             if ($rootScope.authenticated) {
                 $location.path("/");
                 $scope.error = false;

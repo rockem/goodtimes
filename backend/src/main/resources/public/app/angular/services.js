@@ -2,12 +2,12 @@
 
 angular
     .module('goodtimesApp.authService', [])
-    .factory('AuthService', function ($http, $rootScope) {
+    .factory('authService', function ($http, $rootScope) {
         return new AuthService($http, $rootScope);
     });
 
 angular
     .module('goodtimesApp.eventService', [])
-    .factory('EventsApi', function ($http) {
+    .factory('eventsApi', function ($http) {
         return new EventsApi($http);
     });

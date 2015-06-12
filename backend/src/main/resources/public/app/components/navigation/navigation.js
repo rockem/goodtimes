@@ -1,10 +1,10 @@
 'use strict';
 
-function NavigationCtrl(AuthService) {
-    AuthService.authenticate();
+function NavigationCtrl(authService) {
+    authService.authenticate();
 
     this.logout = function () {
-        AuthService.logout();
+        authService.logout();
     }
 }
 
