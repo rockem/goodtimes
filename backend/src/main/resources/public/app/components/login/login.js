@@ -1,6 +1,6 @@
 'use strict';
 
-function LoginCtrl($rootScope, $scope, authService, $location) {
+function LoginCtrl(authService, $rootScope, $scope, $location) {
     var username;
     var password;
     this.login = function () {
