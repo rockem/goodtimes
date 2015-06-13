@@ -1,5 +1,6 @@
 'use strict';
 
+
 function AuthService($http, $rootScope) {
 
     this.authenticate = function (credentials, callback) {
@@ -8,10 +9,10 @@ function AuthService($http, $rootScope) {
             + btoa(credentials.username + ":" + credentials.password)
         } : {};
 
-        $http.get('/api/user', {headers: headers}).success(function (data) {
-            $rootScope.authenticated = !!data.name;
+        $http.get('/api/user', {headers: headers}).then(function (response) {
+            $rootScope.authenticated = !!response.data.name;
             callback && callback();
-        }).error(function () {
+        }, function () {
             $rootScope.authenticated = false;
             callback && callback();
         });
@@ -19,10 +20,10 @@ function AuthService($http, $rootScope) {
     };
 
     this.logout = function (callback) {
-        $http.post('/api/logout', {}).success(function () {
+        $http.post('/api/logout', {}).then(function () {
             $rootScope.authenticated = false;
             callback && callback();
-        }).error(function () {
+        }, function () {
             $rootScope.authenticated = false;
             callback && callback();
         });
