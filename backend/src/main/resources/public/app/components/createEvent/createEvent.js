@@ -1,9 +1,9 @@
 'use strict';
 
-function CreateEventCtrl($scope, $location, eventsApi) {
-    $scope.eventForm = {};
-    $scope.createEvent = function () {
-        eventsApi.createEvent($scope.eventForm).then(function (eventData) {
+function CreateEventCtrl($location, eventsApi) {
+    var event = {};
+    this.createEvent = function () {
+        eventsApi.createEvent(this.event).then(function () {
             $location.path('/event-list');
         });
     }
