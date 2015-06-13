@@ -7,7 +7,6 @@
   "license": "MIT",
   "devDependencies": {
     "karma": "~0.12",
-    "karma-jsmockito-jshamcrest": "~0.0.6",
     "karma-jasmine": "~0.1.0",
     "karma-chrome-launcher": "~0.1",
     "http-server": "^0.6.1",

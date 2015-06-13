@@ -15,15 +15,14 @@ module.exports = function (config) {
 
         autoWatch: true,
 
-        frameworks: ['jasmine', 'jsmockito-jshamcrest'],
+        frameworks: ['jasmine'],
 
         browsers: ['Chrome'],
 
         plugins: [
             'karma-chrome-launcher',
             'karma-jasmine',
-            'karma-junit-reporter',
-            'karma-jsmockito-jshamcrest'
+            'karma-junit-reporter'
         ],
 
         junitReporter: {

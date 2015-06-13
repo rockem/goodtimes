@@ -2,8 +2,8 @@ describe("Navigation Controller", function() {
 
 
     it("should authenticate", function() {
-        var authServiceMock = mock(AuthService);
-        var controller = new NavigationCtrl(authServiceMock);
-        verify(authServiceMock).authenticate();
+        var authServiceMock = createSpyOn(AuthService);
+        new NavigationCtrl(authServiceMock);
+        expect(authServiceMock.authenticate).toHaveBeenCalled();
     })
 });

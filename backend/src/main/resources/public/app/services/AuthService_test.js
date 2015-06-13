@@ -33,28 +33,29 @@ describe('Auth Service', function () {
     describe('Dispatch callback on login', function() {
 
         beforeEach(function() {
-            this.callback = mockFunction();
+            this.callback = jasmine.createSpy('callback');
+        });
 
+        afterEach(function() {
+            expect(this.callback).toHaveBeenCalled();
         });
 
         it('dispatch call back on http success', function () {
             this.httpStub.shouldBeSuccessful = true;
             this.httpStub.successArgs = [{data: {name: ""}}];
             this.service.authenticate({}, this.callback);
-            verify(this.callback)();
         });
 
         it('dispatch call back on http error', function () {
             this.httpStub.shouldBeSuccessful = false;
             this.service.authenticate({}, this.callback);
-            verify(this.callback)();
         });
     });
 
     describe('Logout', function() {
 
         beforeEach(function() {
-            this.callback = mockFunction();
+            this.callback = jasmine.createSpy('callback');
         });
 
         it('on http success', function() {
@@ -69,7 +70,7 @@ describe('Auth Service', function () {
 
         afterEach(function() {
             expect(this.rootScope.authenticated).toBe(false);
-            verify(this.callback)();
+            expect(this.callback).toHaveBeenCalled();
         })
     });
 
