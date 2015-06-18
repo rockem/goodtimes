@@ -1,14 +1,6 @@
 'use strict';
 
 function HttpStub() {
-    var url;
-    var headers;
-    var shouldBeSuccessful = false;
-
-    var successArgs = [];
-    var errorArgs = [];
-
-
     this.httpAction = function(url, headers) {
         this.url = url;
         this.headers = headers;

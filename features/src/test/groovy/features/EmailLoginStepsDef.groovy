@@ -4,7 +4,8 @@ this.metaClass.mixin(cucumber.api.groovy.Hooks)
 this.metaClass.mixin(cucumber.api.groovy.EN)
 
 Given(~/^I'm not logged in$/) { ->
-    // All tests start in logged out state
+    browser.logOutIfNeeded()
+    assert browser.isElementByIdHidden("logout_container"), "I'm logged in"
 }
 
 When(~/^I log in$/) { ->

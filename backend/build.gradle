@@ -4,14 +4,18 @@ buildscript {
         mavenCentral()
         maven { url "https://repo.spring.io/libs-release" }
         maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
+        maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
+        classpath 'com.wiredforcode:gradle-heroku-plugin:1.0.0'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'heroku'
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -126,3 +130,16 @@ applicationDistribution.from(createApplicationYml) {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
+
+heroku {
+    //get this from heroku
+    apiKey = '9912c218aeaa7be012260ee7594fc367316a2a23'
+
+    //set this on first run if you don't want a generated name
+    appName = 'goodtimes-app'
+
+    //set this if you are not happy with the default gradlew buildpack
+    //buildpack = 'https://github.com/krro/heroku-buildpack-gradle'
+}
+
+defaultTasks "clean", "build", "installApp"
