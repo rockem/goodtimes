@@ -1,7 +1,6 @@
 resources:
   projectroot:
-server:
-  port: 8080
+
 mongo:
     url: "ds047642.mongolab.com:47642"
     db: "heroku_rzn64j7z"
