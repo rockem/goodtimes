@@ -145,7 +145,7 @@ heroku {
     appName = 'goodtimes-app'
 
     //set this if you are not happy with the default gradlew buildpack
-    //buildpack = 'https://github.com/krro/heroku-buildpack-gradle'
+    buildpack = 'https://github.com/krro/heroku-buildpack-gradle'
 }
 
 
