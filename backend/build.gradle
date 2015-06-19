@@ -5,16 +5,22 @@ buildscript {
         maven { url "https://repo.spring.io/libs-release" }
         maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
         maven { url 'http://dl.bintray.com/vermeulen-mp/gradle-plugins' }
+        maven {
+            name 'JFrog OSS snapshot repo'
+            url  'https://oss.jfrog.org/oss-snapshot-local/'
+        }
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.10.RELEASE"
         classpath 'com.wiredforcode:gradle-heroku-plugin:1.0.0'
+        classpath 'com.moowork.gradle:gradle-node-plugin:0.10'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: 'heroku'
+apply plugin: 'com.moowork.node'
 
 
 sourceCompatibility = 1.8
@@ -46,7 +52,7 @@ task resolveNPMDependencies(type:Exec) {
     workingDir 'src/main/resources/public'
     commandLine "npm", "install"
 }
-assemble.dependsOn resolveNPMDependencies
+//assemble.dependsOn resolveNPMDependencies
 
 def getArgsFor(String... args) {
     def os = System.getProperty("os.name").toLowerCase()
@@ -140,4 +146,19 @@ heroku {
 
     //set this if you are not happy with the default gradlew buildpack
     //buildpack = 'https://github.com/krro/heroku-buildpack-gradle'
+}
+
+
+task installAngularDependencies(type: NpmTask) {
+    workingDir = file("$projectDir/src/main/resources/public")
+    args = ['install']
+}
+assemble.dependsOn installAngularDependencies
+
+node {
+    npmVersion = '1.4.1'
+
+    workDir = file("$projectDir/src/main/resources/public/nodejs")
+
+    nodeModulesDir = file("$projectDir/src/main/resources/public")
 }
