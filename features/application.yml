@@ -5,3 +5,5 @@ server:
 mongo:
     url: "localhost:27018"
     db: "goodtimes_test"
+    username: ""
+    password: ""

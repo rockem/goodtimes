@@ -33,7 +33,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         boolean devMode = this.env.acceptsProfiles("development");
 
-        String location = devMode ? "file:///" + getProjectRootRequired()  + "/src/main/resources/public/app/" :"classpath:public/app/";
+        String location = devMode ? "file:///" + getProjectRootRequired()  + "/src/main/resources/public/" :"classpath:public/";
         Integer cachePeriod = devMode ? 0 : null;
 
         registry.addResourceHandler("/**")

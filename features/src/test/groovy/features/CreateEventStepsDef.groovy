@@ -15,3 +15,11 @@ Then(~'^I should see the event in the events list$') { ->
     assert browser.getPageSource().contains(dinnerEvent.getName())
 
 }
+
+Given(~/^other user has events$/) { ->
+
+}
+
+Then(~/^I should have (\d+) events$/) { int numOfEvents ->
+
+}

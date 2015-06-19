@@ -2,6 +2,7 @@ logs/*
 !.gitkeep
 node_modules/
 bower_components/
+nodejs/
 tmp
 app/assets/stylesheets/
 *.log

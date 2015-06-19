@@ -13,9 +13,9 @@ angular
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         $routeProvider
-            .when('/', {templateUrl: 'components/home/home.html'})
-            .when('/login', {templateUrl: 'components/login/login.html'})
-            .when('/event-list', {templateUrl: 'components/eventList/eventList.html'})
-            .when('/create-event', {templateUrl: 'components/createEvent/createEvent.html'})
-            .otherwise({redirectTo: '/create-event'});
+            .when('/', {templateUrl: 'app/components/home/home.html'})
+            .when('/login', {templateUrl: 'app/components/login/login.html'})
+            .when('/event-list', {templateUrl: 'app/components/eventList/eventList.html'})
+            .when('/create-event', {templateUrl: 'app/components/createEvent/createEvent.html'})
+            .otherwise({redirectTo: '/'});
     }]);

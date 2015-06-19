@@ -153,10 +153,10 @@ task installAngularDependencies(type: NpmTask) {
     workingDir = file("$projectDir/src/main/resources/public")
     args = ['install']
 }
-assemble.dependsOn installAngularDependencies
+jar.dependsOn installAngularDependencies
 
 node {
-    npmVersion = '1.4.1'
+    npmVersion = '1.4.28'
 
     download = true
 

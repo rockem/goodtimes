@@ -34,10 +34,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/api/logout").and()
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers("/components/login/login.html",
+                .antMatchers("/app/components/login/login.html",
                         "/index.html",
                         "/",
-                        "/components/home/home.html").permitAll()
+                        "/app/components/home/home.html").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/users/*").hasAuthority("ADMIN")
                 .anyRequest()
