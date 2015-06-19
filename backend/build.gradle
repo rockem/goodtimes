@@ -107,14 +107,11 @@ configurations {
     intTestRuntime.extendsFrom testRuntime
 }
 
-task intTest(type:Test){
+task intTests(type:Test){
     description = "Run integration tests (located in src/intTest)."
     testClassesDir = project.sourceSets.intTest.output.classesDir
     classpath = project.sourceSets.intTest.runtimeClasspath
 }
-test.dependsOn intTest
-
-
 
 task createApplicationYml {
     def defaultYml = "application.yml.default"
@@ -166,4 +163,4 @@ task karma(type: NpmTask) {
     workingDir = file("$projectDir/src/main/resources/public")
     args = ['run', 'test-single-run']
 }
-test.dependsOn karma
+intTests.dependsOn karma
