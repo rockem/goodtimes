@@ -142,4 +142,4 @@ heroku {
     //buildpack = 'https://github.com/krro/heroku-buildpack-gradle'
 }
 
-defaultTasks "clean", "build", "installApp"
+defaultTasks "clean", "build"
