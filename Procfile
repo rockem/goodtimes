@@ -1,3 +1,3 @@
 ---
 default_process_types:
-  web: java -jar -Dport=8080 backend/build/libs/backend.jar
+  web: java -jar -Dport=$PORT backend/build/libs/backend.jar
