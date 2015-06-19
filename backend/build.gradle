@@ -157,10 +157,13 @@ processResources.dependsOn installAngularDependencies
 
 node {
     npmVersion = '1.4.28'
-
     download = true
-
     workDir = file("$projectDir/src/main/resources/public/nodejs")
-
     nodeModulesDir = file("$projectDir/src/main/resources/public")
 }
+
+task karma(type: NpmTask) {
+    workingDir = file("$projectDir/src/main/resources/public")
+    args = ['run', 'test-single-run']
+}
+test.dependsOn karma
