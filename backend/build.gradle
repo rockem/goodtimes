@@ -158,6 +158,8 @@ assemble.dependsOn installAngularDependencies
 node {
     npmVersion = '1.4.1'
 
+    download = true
+
     workDir = file("$projectDir/src/main/resources/public/nodejs")
 
     nodeModulesDir = file("$projectDir/src/main/resources/public")
