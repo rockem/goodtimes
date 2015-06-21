@@ -9,7 +9,7 @@ Given(~/^I'm not logged in$/) { ->
 }
 
 When(~/^I log in$/) { ->
-    browser.logInWith(user)
+    browser.logInWith(MY_USER)
 }
 
 Then(~/^I should (not )?be logged in$/) { loggedIn ->

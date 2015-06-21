@@ -1,4 +1,4 @@
-package test.com.goodtimes.users;
+package it.com.goodtimes.users;
 
 import com.goodtimes.users.GoodtimesUser;
 import com.goodtimes.users.UsersRepository;
@@ -9,12 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
-import test.com.goodtimes.support.MockMvcHelper;
+import it.com.goodtimes.support.MockMvcHelper;
 import org.junit.Test;
 import org.mockito.internal.matchers.EndsWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import test.com.goodtimes.support.TestContext;
-import test.com.goodtimes.support.WebAppTestContext;
+import it.com.goodtimes.support.TestContext;
+import it.com.goodtimes.support.WebAppTestContext;
 
 import java.math.BigInteger;
 
@@ -52,11 +52,16 @@ public class UsersControllerIT {
         new MockMvcHelper(mockMvc)
                 .postObjectToUrl(user, API_USERS)
                 .andExpect(status().isCreated())
-                .andExpect(header().string("Location", new EndsWith(API_USERS + userId)));;
+                .andExpect(header().string("Location", new EndsWith(API_USERS + userId)));
+        ;
     }
 
-    private GoodtimesUser createUserWithIdFrom(int i, GoodtimesUser user) {
-        return new GoodtimesUser(BigInteger.valueOf(i), user.getUsername(), user.getPassword(), user.getEmail());
+    private GoodtimesUser createUserWithIdFrom(int id, GoodtimesUser user) {
+        return GoodtimesUser.builder()
+                .id(BigInteger.valueOf(id))
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .email(user.getEmail()).build();
     }
 
     @Test

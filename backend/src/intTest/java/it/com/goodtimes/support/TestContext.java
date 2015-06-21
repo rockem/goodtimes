@@ -1,5 +1,6 @@
-package test.com.goodtimes.support;
+package it.com.goodtimes.support;
 
+import com.goodtimes.auth.AuthService;
 import com.goodtimes.events.EventsRepository;
 import com.goodtimes.users.UsersRepository;
 import org.mockito.Mockito;
@@ -17,6 +18,11 @@ public class TestContext {
     @Bean
     public UsersRepository usersRepository() {
         return Mockito.mock(UsersRepository.class);
+    }
+
+    @Bean
+    public AuthService authService() {
+        return Mockito.mock(AuthService.class);
     }
 
 }

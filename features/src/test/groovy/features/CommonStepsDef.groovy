@@ -11,13 +11,13 @@ World {
 }
 
 Before {
-    goodtimesClient.deleteUser(user.getUsername())
-    goodtimesClient.createUser(user)
+    goodtimesClient.deleteUser(MY_USER.getUsername())
+    goodtimesClient.createUser(MY_USER)
     browser.startBrowser('http://localhost:4123')
 }
 
 Before("@LoggedIn") {
-    browser.logInWith(user)
+    browser.logInWith(MY_USER)
 }
 
 After {

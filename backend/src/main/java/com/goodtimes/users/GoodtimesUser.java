@@ -1,18 +1,23 @@
 package com.goodtimes.users;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter
-@EqualsAndHashCode
+@Builder
+@AllArgsConstructor
+@Data
 public class GoodtimesUser {
 
+    @Id
     private BigInteger id;
     private String username;
     private String password;
     private String email;
+    private List<String> roles = new ArrayList<>();
 
     public GoodtimesUser() {}
 
@@ -22,8 +27,4 @@ public class GoodtimesUser {
         this.email = mail;
     }
 
-    public GoodtimesUser(BigInteger id, String user, String pass, String mail) {
-        this(user, pass, mail);
-        this.id = id;
-    }
 }
