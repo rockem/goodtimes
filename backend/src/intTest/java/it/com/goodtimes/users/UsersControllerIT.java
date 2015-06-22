@@ -4,6 +4,7 @@ import com.goodtimes.users.GoodtimesUser;
 import com.goodtimes.users.UsersRepository;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatcher;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -18,6 +19,7 @@ import it.com.goodtimes.support.WebAppTestContext;
 
 import java.math.BigInteger;
 
+import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -46,14 +48,26 @@ public class UsersControllerIT {
 
     @Test
     public void shouldCreateNewUser() throws Exception {
-        GoodtimesUser user = new GoodtimesUser("USER", "PASS", "MAIL");
+        GoodtimesUser user = GoodtimesUser.builder().username("USER").password("PASS").build();
         int userId = 4;
         when(usersRepository.save(user)).thenReturn(createUserWithIdFrom(userId, user));
         new MockMvcHelper(mockMvc)
                 .postObjectToUrl(user, API_USERS)
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", new EndsWith(API_USERS + userId)));
-        ;
+        verify(usersRepository).save(argThat(new UserIsEnabled()));
+    }
+
+    private class UserIsEnabled extends ArgumentMatcher<GoodtimesUser> {
+
+        @Override
+        public boolean matches(Object argument) {
+            GoodtimesUser gtu = (GoodtimesUser) argument;
+            return gtu.isEnabled() &&
+                    gtu.isAccountNonExpired() &&
+                    gtu.isAccountNonLocked() &&
+                    gtu.isCredentialsNonExpired();
+        }
     }
 
     private GoodtimesUser createUserWithIdFrom(int id, GoodtimesUser user) {

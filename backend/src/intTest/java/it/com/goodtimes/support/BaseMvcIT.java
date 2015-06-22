@@ -7,11 +7,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
+
+import javax.annotation.Resource;
 
 import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -21,13 +24,18 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WebAppConfiguration
 public abstract class BaseMvcIT {
 
+    //@Resource
+    private FilterChainProxy springSecurityFilterChain = new FilterChainProxy();
+
     protected MockMvc mockMvc;
     @Autowired
     private WebApplicationContext applicationContext;
 
     @Before
     public void setup() throws Exception {
-        mockMvc = webAppContextSetup(applicationContext).build();
+        mockMvc = webAppContextSetup(applicationContext)
+                //.addFilters(springSecurityFilterChain)
+                .build();
     }
 
 

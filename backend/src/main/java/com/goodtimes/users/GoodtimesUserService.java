@@ -29,10 +29,7 @@ public class GoodtimesUserService implements UserDetailsService {
     private UserDetails getUserFromRepository(String username) {
         GoodtimesUser user = usersRepository.findByUsername(username);
         validateUser(user, username);
-        return new User(
-                user.getUsername(),
-                user.getPassword(),
-                user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(toList()));
+        return user;
     }
 
     private void validateUser(GoodtimesUser user, String username) {

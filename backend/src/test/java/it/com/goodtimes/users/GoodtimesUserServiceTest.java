@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -35,19 +36,19 @@ public class GoodtimesUserServiceTest {
             .username("popov")
             .password("1234")
             .email("p.p@p.com")
-            .roles(Arrays.asList("ADMIN", "USER"))
+            .roles(new HashSet<>(Arrays.asList("ADMIN", "USER")))
             .build();
 
     @Test
     public void shouldRetrieveUser() throws Exception {
         when(usersRepository.findByUsername(POPOV.getUsername())).thenReturn(POPOV);
         UserDetails user = service.loadUserByUsername(POPOV.getUsername());
-        assertThat(user.getUsername(), is(POPOV.getUsername()));
-        assertThat(user.getPassword(), is(POPOV.getPassword()));
-        assertThat(((Collection< GrantedAuthority>)user.getAuthorities()), IsCollectionContaining.hasItems(
-                new SimpleGrantedAuthority(POPOV.getRoles().get(0)),
-                new SimpleGrantedAuthority(POPOV.getRoles().get(1))
-        ));
+        assertThat(user, is(POPOV));
+//        assertThat(user.getUsername(), is(POPOV.getUsername()));
+//        assertThat(user.getPassword(), is(POPOV.getPassword()));
+//        assertThat(((Collection< GrantedAuthority>)user.getAuthorities()), IsCollectionContaining.hasItems(
+//                POPOV.getAuthorities()ll
+//        ));
     }
 
     @Test(expected = UsernameNotFoundException.class)

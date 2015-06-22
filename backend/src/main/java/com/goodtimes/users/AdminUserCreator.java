@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 @Component
 public class AdminUserCreator {
@@ -41,6 +44,10 @@ public class AdminUserCreator {
                 .username(adminUsername)
                 .password(adminPassword)
                 .email(adminEmail)
-                .roles(Collections.singletonList("ADMIN"));
+                .roles(new HashSet<>(Collections.singletonList("ADMIN")))
+                .enabled(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .accountNonExpired(true);
     }
 }

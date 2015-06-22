@@ -5,9 +5,9 @@ import com.goodtimes.users.GoodtimesUser;
 import com.goodtimes.users.UsersRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 
 import java.math.BigInteger;
-import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 
@@ -19,13 +19,13 @@ public class AdminUserCreatorTest {
             .username(ADMIN_USERNAME)
             .password("1234")
             .email("admin@g.com")
-            .roles(Collections.singletonList("ADMIN")).build();
+            .role("ADMIN").build();
 
     private static final GoodtimesUser SAVED_ADMIN_USER = GoodtimesUser.builder()
             .id(BigInteger.valueOf(325))
             .username(ADMIN_USERNAME)
             .password("123456")
-            .roles(Collections.singletonList("ADMIN")).build();
+            .role("ADMIN").build();
 
     private final UsersRepository usersRepository = mock(UsersRepository.class);
     private final AdminUserCreator creator = new AdminUserCreator(usersRepository);
@@ -47,9 +47,31 @@ public class AdminUserCreatorTest {
     @Test
     public void updateAdminUserIfAlreadyExists() throws Exception {
         when(usersRepository.findByUsername(ADMIN_USERNAME)).thenReturn(SAVED_ADMIN_USER);
-        NEW_ADMIN_USER.setId(SAVED_ADMIN_USER.getId());
         creator.create();
-        verify(usersRepository).save(NEW_ADMIN_USER);
+        verify(usersRepository).save(
+                GoodtimesUser.createBuilderFrom(NEW_ADMIN_USER)
+                        .id(SAVED_ADMIN_USER.getId())
+                        .build());
 
+    }
+
+    @Test
+    public void adminShouldBeEnabledUser() throws Exception {
+        when(usersRepository.findByUsername(ADMIN_USERNAME)).thenReturn(null);
+        creator.create();
+        verify(usersRepository).save(argThat(new UserIsEnabled()));
+
+    }
+
+    private class UserIsEnabled extends ArgumentMatcher<GoodtimesUser> {
+
+        @Override
+        public boolean matches(Object argument) {
+            GoodtimesUser gtu = (GoodtimesUser) argument;
+            return gtu.isEnabled() &&
+                    gtu.isAccountNonExpired() &&
+                    gtu.isAccountNonLocked() &&
+                    gtu.isCredentialsNonExpired();
+        }
     }
 }
