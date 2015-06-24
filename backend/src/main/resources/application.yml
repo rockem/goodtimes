@@ -6,3 +6,8 @@ mongo:
     db: "heroku_rzn64j7z"
     username: "gtimesapp"
     password: "elieitan123"
+
+admin:
+  username: "goodtimesAdmin"
+  password: "ksud7dksD3rdTGS345skdnsfhk"
+  email: "eli.segal@gmail.com"

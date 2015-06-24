@@ -83,5 +83,15 @@ class GoodtimesClient {
         assert response.status == 200
     }
 
+    def createEvent(GoodtimesEvent event) {
+        def response = client.post(
+                path: "/api/events",
+                body: JSONObject.fromObject(event),
+                requestContentType : ContentType.JSON,
+                headers: ["X-XSRF-TOKEN" : this.xsrfToken]
+        )
+        assert response.status == 201
+    }
+
 
 }

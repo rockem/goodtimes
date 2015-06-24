@@ -21,10 +21,19 @@ public class UsersController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody GoodtimesUser user) {
-        GoodtimesUser savedUser = usersRepository.save(user);
+        GoodtimesUser savedUser = usersRepository.save(createEnabledUserFrom(user));
         return new ResponseEntity<>(null,
                 HttpUtil.createPostHttpHeaders(savedUser.getId().toString()),
                 HttpStatus.CREATED);
+    }
+
+    private GoodtimesUser createEnabledUserFrom(GoodtimesUser user) {
+        return GoodtimesUser.createBuilderFrom(user)
+                .enabled(true)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .build();
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)

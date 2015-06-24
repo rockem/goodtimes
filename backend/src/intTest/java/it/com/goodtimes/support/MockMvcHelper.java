@@ -1,4 +1,4 @@
-package test.com.goodtimes.support;
+package it.com.goodtimes.support;
 
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
