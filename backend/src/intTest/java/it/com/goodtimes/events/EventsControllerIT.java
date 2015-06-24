@@ -1,32 +1,22 @@
 package it.com.goodtimes.events;
 
 
-import com.goodtimes.auth.AuthService;
 import com.goodtimes.events.EventsRepository;
 import com.goodtimes.events.GoodtimeEvent;
 import com.goodtimes.users.GoodtimesUser;
-import com.goodtimes.users.UsersRepository;
 import com.google.gson.Gson;
-import org.junit.After;
 import org.junit.Before;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import it.com.goodtimes.support.BaseMvcIT;
 import it.com.goodtimes.support.MockMvcHelper;
 import org.junit.Test;
 import org.mockito.internal.matchers.EndsWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.FilterChainProxy;
 
-import javax.annotation.Resource;
 import java.math.BigInteger;
-import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -83,7 +73,7 @@ public class EventsControllerIT extends BaseMvcIT {
     }
 
     private GoodtimeEvent addIdTo(BigInteger id, GoodtimeEvent event) {
-        GoodtimeEvent result = GoodtimeEvent.createFrom(event);
+        GoodtimeEvent result = event.createAClone();
         result.setUserId(id);
         return result;
     }

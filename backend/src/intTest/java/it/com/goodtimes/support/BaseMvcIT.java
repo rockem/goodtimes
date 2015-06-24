@@ -1,6 +1,5 @@
 package it.com.goodtimes.support;
 
-import com.goodtimes.auth.AuthService;
 import com.goodtimes.events.EventsRepository;
 import com.goodtimes.users.UsersRepository;
 import org.junit.After;
@@ -14,8 +13,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.annotation.Resource;
-
 import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -24,9 +21,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WebAppConfiguration
 public abstract class BaseMvcIT {
 
-    //@Resource
-    private FilterChainProxy springSecurityFilterChain = new FilterChainProxy();
-
     protected MockMvc mockMvc;
     @Autowired
     private WebApplicationContext applicationContext;
@@ -34,22 +28,17 @@ public abstract class BaseMvcIT {
     @Before
     public void setup() throws Exception {
         mockMvc = webAppContextSetup(applicationContext)
-                //.addFilters(springSecurityFilterChain)
                 .build();
     }
-
 
     @Autowired
     private EventsRepository eventsRepository;
     @Autowired
     private UsersRepository usersRepository;
-    @Autowired
-    private AuthService authService;
 
     @After
     public void tearDown() throws Exception {
         reset(eventsRepository);
         reset(usersRepository);
-        reset(authService);
     }
 }

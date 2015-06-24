@@ -21,12 +21,12 @@ public class GoodtimeEvent {
 
     private GoodtimeEvent() {}
 
-    public static GoodtimeEvent createFrom(GoodtimeEvent event) {
+    public GoodtimeEvent createAClone() {
         return new GoodtimeEvent(
-                event.getId(),
-                event.getName(),
-                event.getDescription(),
-                event.getUserId());
+                id,
+                name,
+                description,
+                userId);
     }
 
 }

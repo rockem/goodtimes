@@ -1,6 +1,5 @@
 Feature: Create an event
 
-  @wip
   @LoggedIn
   Scenario: Create event with a description
     Given I am on the "create-event" page

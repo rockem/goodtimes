@@ -1,6 +1,5 @@
 package com.goodtimes.events;
 
-import com.goodtimes.auth.AuthService;
 import com.goodtimes.support.HttpUtil;
 import com.goodtimes.users.GoodtimesUser;
 import org.springframework.beans.factory.annotation.Autowired;
