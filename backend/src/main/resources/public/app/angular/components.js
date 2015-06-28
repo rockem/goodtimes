@@ -5,7 +5,7 @@ angular
     .controller('LoginCtrl', LoginCtrl);
 
 angular
-    .module('goodtimesApp.eventList', [])
+    .module('goodtimesApp.eventList', ['goodtimesApp.eventService'])
     .controller('EventListCtrl', EventListCtrl);
 
 angular
