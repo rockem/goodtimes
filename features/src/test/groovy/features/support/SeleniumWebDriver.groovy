@@ -66,4 +66,8 @@ class SeleniumWebDriver {
         }
     }
 
+    def rowCountFor(String id) {
+        return driver.findElements(By.xpath("//ul[@id='$id']/li/a")).size()
+    }
+
 }
