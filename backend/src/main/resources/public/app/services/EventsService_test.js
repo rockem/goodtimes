@@ -17,5 +17,6 @@ describe('Events Service', function () {
         this.service.createEvent(['someData'], this.callback);
         expect(this.callback).toHaveBeenCalled();
         expect(this.httpStub.data).toEqual(['someData']);
-    })
+    });
+
 });

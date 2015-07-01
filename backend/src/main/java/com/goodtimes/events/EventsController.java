@@ -51,4 +51,10 @@ public class EventsController {
     public List<GoodtimeEvent> findAll(Principal user) {
         return eventsRepository.findAllByUserId(getCurrentUserIdFrom(user));
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public GoodtimeEvent findOne(@PathVariable final String id, Principal user) {
+        return eventsRepository.findOne(id);
+    }
+
 }
