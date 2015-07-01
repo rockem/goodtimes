@@ -4,13 +4,13 @@
 function EventsApi($http) {
     var EVENTS_PATH = '/api/events';
 
-    this.getEvents = function () {
+    this.getEvents = function (done) {
         return $http.get(EVENTS_PATH).then(function (response) {
-            return response.data;
+            done(response.data);
         });
     };
-    this.createEvent = function (eventData) {
-        return $http.post(EVENTS_PATH, eventData);
+    this.createEvent = function (eventData, done) {
+        $http.post(EVENTS_PATH, eventData).then(done());
     };
 }
 

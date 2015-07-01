@@ -1,9 +1,10 @@
 'use strict';
 
-function EventListCtrl($scope, eventsApi) {
-    $scope.events = [];
-    eventsApi.getEvents().then(function (data) {
-        angular.copy(data, $scope.events);
+function EventListCtrl(eventsApi) {
+    var self = this;
+    self.events = [];
+    eventsApi.getEvents(function (data) {
+        self.events = data.slice();
     });
 }
 
