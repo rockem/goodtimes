@@ -11,6 +11,7 @@ World {
 }
 
 Before {
+    goodtimesClient.deleteAllEvents()
     goodtimesClient.deleteUser(MY_USER.getUsername())
     goodtimesClient.createUser(MY_USER)
     browser.startBrowser('http://localhost:4123')
