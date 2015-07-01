@@ -13,6 +13,11 @@ When(~'I submit event details$') { ->
     browser.submitForm(['event-name': DINNER_EVENT.getName(), 'event-description': DINNER_EVENT.getDescription()])
 }
 
+When(~'I click on create event') { ->
+    browser.findElementById('create-event').click()
+    sleep(1)
+}
+
 Then(~'^I should see the event in the events list$') { ->
     assert browser.getPageSource().contains(DINNER_EVENT.getName())
 }
