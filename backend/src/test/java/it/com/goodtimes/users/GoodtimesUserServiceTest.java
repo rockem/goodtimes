@@ -32,7 +32,7 @@ public class GoodtimesUserServiceTest {
     private final GoodtimesUserService service = new GoodtimesUserService(usersRepository);
 
     public static final GoodtimesUser POPOV = GoodtimesUser.builder()
-            .id(BigInteger.valueOf(34))
+            .id("34")
             .username("popov")
             .password("1234")
             .email("p.p@p.com")

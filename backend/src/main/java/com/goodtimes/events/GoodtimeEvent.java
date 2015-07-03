@@ -14,10 +14,10 @@ import java.math.BigInteger;
 public class GoodtimeEvent {
 
     @Id
-    private BigInteger id;
+    private String id;
     private String name;
     private String description;
-    private BigInteger userId;
+    private String userId;
 
     private GoodtimeEvent() {}
 

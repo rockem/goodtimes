@@ -22,7 +22,7 @@ public class AdminUserCreatorTest {
             .role("ADMIN").build();
 
     private static final GoodtimesUser SAVED_ADMIN_USER = GoodtimesUser.builder()
-            .id(BigInteger.valueOf(325))
+            .id("325")
             .username(ADMIN_USERNAME)
             .password("123456")
             .role("ADMIN").build();

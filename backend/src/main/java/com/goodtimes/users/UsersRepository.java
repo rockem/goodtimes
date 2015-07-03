@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-public interface UsersRepository extends MongoRepository<GoodtimesUser, BigInteger> {
+public interface UsersRepository extends MongoRepository<GoodtimesUser, String> {
 
     GoodtimesUser findByUsername(String username);
 

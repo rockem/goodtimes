@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Repository
-public interface EventsRepository extends MongoRepository<GoodtimeEvent, BigInteger> {
+public interface EventsRepository extends MongoRepository<GoodtimeEvent, String> {
 
-    List<GoodtimeEvent> findAllByUserId(BigInteger userId);
+    List<GoodtimeEvent> findAllByUserId(String userId);
 }

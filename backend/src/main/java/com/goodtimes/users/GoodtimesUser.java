@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.toList;
 public class GoodtimesUser implements UserDetails {
 
     @Id
-    private BigInteger id;
+    private String id;
     private String email;
     private String password;
     private String username;

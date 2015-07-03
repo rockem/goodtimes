@@ -28,17 +28,17 @@ public class EventsController {
         event.setUserId(getCurrentUserIdFrom(user));
         GoodtimeEvent saved_event = eventsRepository.save(event);
         return new ResponseEntity<>(null,
-                HttpUtil.createPostHttpHeaders(saved_event.getId().toString()),
+                HttpUtil.createPostHttpHeaders(saved_event.getId()),
                 HttpStatus.CREATED);
     }
 
-    private BigInteger getCurrentUserIdFrom(Principal user) {
+    private String getCurrentUserIdFrom(Principal user) {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) user;
         return ((GoodtimesUser) token.getPrincipal()).getId();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable final BigInteger id) {
+    public void delete(@PathVariable final String id) {
         eventsRepository.delete(id);
     }
 

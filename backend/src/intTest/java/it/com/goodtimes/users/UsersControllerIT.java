@@ -49,7 +49,7 @@ public class UsersControllerIT {
     @Test
     public void shouldCreateNewUser() throws Exception {
         GoodtimesUser user = GoodtimesUser.builder().username("USER").password("PASS").build();
-        int userId = 4;
+        String userId = "4";
         when(usersRepository.save(user)).thenReturn(createUserWithIdFrom(userId, user));
         new MockMvcHelper(mockMvc)
                 .postObjectToUrl(user, API_USERS)
@@ -70,9 +70,9 @@ public class UsersControllerIT {
         }
     }
 
-    private GoodtimesUser createUserWithIdFrom(int id, GoodtimesUser user) {
+    private GoodtimesUser createUserWithIdFrom(String id, GoodtimesUser user) {
         return GoodtimesUser.builder()
-                .id(BigInteger.valueOf(id))
+                .id(id)
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .email(user.getEmail()).build();

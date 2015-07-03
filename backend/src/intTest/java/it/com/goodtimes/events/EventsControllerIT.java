@@ -27,12 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class EventsControllerIT extends BaseMvcIT {
 
+    public static final String USER_ID = "45";
     private static final GoodtimeEvent SAVED_EVENT =
-            new GoodtimeEvent(BigInteger.valueOf(2), "kuku", "Kuku's dinner", BigInteger.valueOf(45));
+            new GoodtimeEvent("2", "kuku", "Kuku's dinner", USER_ID);
     private static final String API_EVENTS = "/api/events/";
 
     private static final GoodtimesUser CURRENT_USER = GoodtimesUser.builder()
-            .id(BigInteger.valueOf(45))
+            .id(USER_ID)
             .username("kuku")
             .build();
 
@@ -72,7 +73,7 @@ public class EventsControllerIT extends BaseMvcIT {
                 .andExpect(header().string("Location", new EndsWith(API_EVENTS + SAVED_EVENT.getId().toString())));
     }
 
-    private GoodtimeEvent addIdTo(BigInteger id, GoodtimeEvent event) {
+    private GoodtimeEvent addIdTo(String id, GoodtimeEvent event) {
         GoodtimeEvent result = event.createAClone();
         result.setUserId(id);
         return result;
@@ -86,7 +87,7 @@ public class EventsControllerIT extends BaseMvcIT {
         mockMvc.perform(get(API_EVENTS).principal(CURRENT_PRINCIPAL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MockMvcHelper.CONTENT_TYPE))
-                .andExpect(jsonPath("$[0].id", is(SAVED_EVENT.getId().intValue())))
+                .andExpect(jsonPath("$[0].id", is(SAVED_EVENT.getId())))
                 .andExpect(jsonPath("$[0].name", is(SAVED_EVENT.getName())))
                 .andExpect(jsonPath("$[0].description", is(SAVED_EVENT.getDescription())));
     }
