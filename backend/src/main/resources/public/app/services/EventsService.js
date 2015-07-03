@@ -10,7 +10,9 @@ function EventsApi($http) {
         });
     };
     this.createEvent = function (eventData, callback) {
-        $http.post(EVENTS_PATH, eventData).then(callback());
+        $http.post(EVENTS_PATH, eventData).then(function() {
+            callback();
+        });
     };
 }
 
