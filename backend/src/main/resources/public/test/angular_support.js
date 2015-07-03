@@ -11,7 +11,10 @@ function HttpStub() {
     };
 
     this.get = this.httpAction;
-    this.post = this.httpAction;
+    this.post = function(url, data, headers) {
+        this.data = data;
+        return this.httpAction(url, headers);
+    }
 
     this.httpPromise = function (success, successArgs, errorArgs) {
         this.then = function (successCallback, failureCallback) {

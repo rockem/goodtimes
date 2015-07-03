@@ -70,4 +70,8 @@ class SeleniumWebDriver {
         return driver.findElements(By.xpath("//ul[@id='$id']/li/a")).size()
     }
 
+    def contains(String value) {
+        return driver.findElement(By.tagName("body")).getText().contains(value)
+    }
+
 }

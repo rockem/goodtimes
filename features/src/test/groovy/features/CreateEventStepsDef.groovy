@@ -11,11 +11,11 @@ When(~'I submit event details$') { ->
 
 When(~'I click on create event') { ->
     browser.findElementById('create-event').click()
-    sleep(1)
+    sleep(1000)
 }
 
 Then(~'^I should see the event in the events list$') { ->
-    assert browser.getPageSource().contains(DINNER_EVENT.getName())
+    assert browser.contains(DINNER_EVENT.getName())
 }
 
 Given(~/^other user has events$/) { ->

@@ -1,7 +1,7 @@
-<div ng-controller="EventListCtrl">
+<div ng-controller="EventListCtrl as ctrl">
     <ul id="events-list" class="list-group">
         <li>
-            <a href="#" class="list-group-item"  ng-repeat="event in events">
+            <a href="#" class="list-group-item"  ng-repeat="event in ctrl.events">
                 <h4 class="list-group-item-heading">{{ event.name}}</h4>
                 <p class="list-group-item-text">{{ event.description}}</p>
             </a>
