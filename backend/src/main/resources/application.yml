@@ -9,5 +9,5 @@ mongo:
 
 admin:
   username: "goodtimesAdmin"
-  password: "ksud7dksD3rdTGS345skdnsfhk"
+  password: "$2a$10$QX8BFZh69TpV7Gs7xhghsOc5kEC6gjik9uqhTkJyIGE998pLfilHK"
   email: "eli.segal@gmail.com"
