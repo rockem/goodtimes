@@ -85,7 +85,7 @@ test {
 
 task runFeatures(type: Test) {
     //jvmArgs '-Djava.awt.headless=false'
-    systemProperties['mongo.url'] = System.getProperty('mongo.url')
+    //systemProperties['mongo.url'] = System.getProperty('mongo.url')
     include 'features/**/'
 
 }
