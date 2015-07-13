@@ -53,7 +53,7 @@ public class EventsController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public GoodtimeEvent findOne(@PathVariable final String id, Principal user) {
+    public GoodtimeEvent findOne(@PathVariable final String id) {
         return eventsRepository.findOne(id);
     }
 

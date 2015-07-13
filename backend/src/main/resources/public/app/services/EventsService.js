@@ -11,7 +11,7 @@ function EventsApi($http) {
     };
 
     this.getEvents = function (callback) {
-        return $http.get(EVENTS_PATH).then(function (response) {
+        $http.get(EVENTS_PATH).then(function (response) {
             callback(response.data);
         });
     };
