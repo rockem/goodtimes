@@ -99,4 +99,12 @@ public class EventsControllerIT extends BaseMvcIT {
                 .andExpect(status().isOk());
         verify(eventsRepository).deleteAll();
     }
+
+    @Test
+    public void shouldRetrieveSpecificEvent() throws Exception {
+        when(eventsRepository.findOne(SAVED_EVENT.getId())).thenReturn(SAVED_EVENT);
+        mockMvc.perform(get(API_EVENTS + SAVED_EVENT.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(SAVED_EVENT.getId())));
+    }
 }

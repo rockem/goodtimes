@@ -62,12 +62,22 @@ class SeleniumWebDriver {
         try {
             findElementByName("logout").click()
         } catch(ElementNotVisibleException e) {
-            // Swallow
+            // Do nothing
         }
     }
 
     def rowCountFor(String id) {
         return driver.findElements(By.xpath("//ul[@id='$id']/li/a")).size()
+    }
+
+    def clickOnEvent(String name) {
+        driver.findElement(By.xpath("//a[contains(., '$name')]")).click()
+        sleep(1000)
+    }
+
+    def createEvent(String name, String desc) {
+        gotoUrl(UrlHelper.getUrlForPage("create-event"))
+        submitForm(['event-name': name, 'event-description': desc])
     }
 
     def contains(String value) {

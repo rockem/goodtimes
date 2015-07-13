@@ -15,3 +15,7 @@ angular
 angular
     .module('goodtimesApp.navigation', ['goodtimesApp.authService'])
     .controller('NavigationCtrl', NavigationCtrl);
+
+angular
+    .module('goodtimesApp.eventDetails', ['goodtimesApp.eventService'])
+    .controller('EventDetailsCtrl', EventDetailsCtrl);

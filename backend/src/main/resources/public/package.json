@@ -7,7 +7,7 @@
   "license": "MIT",
   "devDependencies": {
     "karma": "~0.12",
-    "karma-jasmine": "~0.1.0",
+    "karma-jasmine": "~0.2",
     "karma-firefox-launcher": "~0.1",
     "http-server": "^0.6.1",
     "bower": "^1.4.1",

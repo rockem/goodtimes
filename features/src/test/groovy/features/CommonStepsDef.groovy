@@ -30,5 +30,5 @@ Given(~'^I am on the "(.*)" page$') { page ->
 }
 
 Then(~/^I should be on the "(.*?)" page$/) { String page ->
-    assert UrlHelper.getUrlForPage(page) == browser.currentUrl()
+    assert browser.currentUrl().startsWith(UrlHelper.getUrlForPage(page))
 }
