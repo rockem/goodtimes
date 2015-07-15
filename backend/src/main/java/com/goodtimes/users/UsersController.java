@@ -4,6 +4,7 @@ import com.goodtimes.support.HttpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -21,19 +22,24 @@ public class UsersController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody GoodtimesUser user) {
-        GoodtimesUser savedUser = usersRepository.save(createEnabledUserFrom(user));
+        GoodtimesUser savedUser = saveUser(user);
         return new ResponseEntity<>(null,
-                HttpUtil.createPostHttpHeaders(savedUser.getId().toString()),
+                HttpUtil.createPostHttpHeaders(savedUser.getId()),
                 HttpStatus.CREATED);
     }
 
-    private GoodtimesUser createEnabledUserFrom(GoodtimesUser user) {
-        return GoodtimesUser.createBuilderFrom(user)
-                .enabled(true)
+    private GoodtimesUser saveUser(@RequestBody GoodtimesUser user) {
+        GoodtimesUser.GoodtimesUserBuilder userBuilder = GoodtimesUser.createBuilderFrom(user);
+        enableUser(userBuilder);
+        userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+        return usersRepository.save(userBuilder.build());
+    }
+
+    private void enableUser(GoodtimesUser.GoodtimesUserBuilder userBuilder) {
+                userBuilder.enabled(true)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
-                .credentialsNonExpired(true)
-                .build();
+                .credentialsNonExpired(true);
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)

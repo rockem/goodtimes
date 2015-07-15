@@ -12,7 +12,7 @@ import java.util.regex.Matcher
 class GoodtimesClient {
 
     private static final String ADMIN_USERNAME = "goodtimesAdmin"
-    private static final String ADMIN_PASSWORD = "ksud7dksD3rdTGS345skdnsfhk"
+    private static final String ADMIN_PASSWORD = "EliEitan123"
 
     private def client
     private String xsrfToken

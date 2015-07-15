@@ -5,6 +5,7 @@ import com.goodtimes.users.UsersRepository;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -17,9 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import it.com.goodtimes.support.TestContext;
 import it.com.goodtimes.support.WebAppTestContext;
 
-import java.math.BigInteger;
-
 import static org.mockito.Matchers.argThat;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -55,7 +55,22 @@ public class UsersControllerIT {
                 .postObjectToUrl(user, API_USERS)
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", new EndsWith(API_USERS + userId)));
+        verify(usersRepository).save(argThat(new UserPasswordIsEncrypted(user.getPassword())));
         verify(usersRepository).save(argThat(new UserIsEnabled()));
+    }
+
+    private class UserPasswordIsEncrypted extends ArgumentMatcher<GoodtimesUser> {
+
+        private final String originalPassword;
+
+        public UserPasswordIsEncrypted(String originalPassword) {
+            this.originalPassword = originalPassword;
+        }
+
+        @Override
+        public boolean matches(Object argument) {
+            return new BCryptPasswordEncoder().matches(originalPassword, ((GoodtimesUser)argument).getPassword());
+        }
     }
 
     private class UserIsEnabled extends ArgumentMatcher<GoodtimesUser> {
