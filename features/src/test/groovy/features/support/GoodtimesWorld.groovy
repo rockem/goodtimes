@@ -16,6 +16,11 @@ class GoodtimesWorld {
             password: "123456",
             email: "p.p@walla.com")
 
+    static GoodtimesUser NEW_USER = new GoodtimesUser(
+            username: "Poppi",
+            password: "250809",
+            email: "pop.pi@goodtimes.com")
+
     static GoodtimesEvent DINNER_EVENT = new GoodtimesEvent(
             name: "Kuku's dinner",
             description: "Dinner party for four"

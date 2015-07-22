@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @RunWith(Cucumber.class)
-//@CucumberOptions(tags="@wip")
+@CucumberOptions(tags="@wip")
 public class RunFeatures {
 
     public static final int SECOND = 1000;

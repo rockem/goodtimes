@@ -15,3 +15,7 @@ angular
 angular
     .module('goodtimesApp.navigation', ['goodtimesApp.authService'])
     .controller('NavigationCtrl', NavigationCtrl);
+
+angular
+    .module('goodtimesApp.signup', [])
+    .controller('SignupCtrl', SignupCtrl);

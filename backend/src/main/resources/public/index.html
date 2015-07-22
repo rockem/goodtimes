@@ -31,6 +31,7 @@
     <ul class="nav" role="tablist">
         <li class="active"><a href="/#/">home</a></li>
         <li ng-show="!authenticated"><a href="/#/login">login</a></li>
+        <li ng-show="!authenticated"><a name="Sign up" href="/#/signup">Sign up</a></li>
         <li ng-show="authenticated"><a name="logout" href="" ng-click="ctrl.logout()">Logout</a></li>
     </ul>
 </div>
@@ -49,6 +50,7 @@
 <script src="app/app.js"></script>
 <script src="app/components/navigation/navigation.js"></script>
 <script src="app/components/login/login.js"></script>
+<script src="app/components/signup/signup.js"></script>
 <script src="app/services/EventsService.js"></script>
 <script src="app/services/AuthService.js"></script>
 <script src="app/components/createEvent/createEvent.js"></script>
