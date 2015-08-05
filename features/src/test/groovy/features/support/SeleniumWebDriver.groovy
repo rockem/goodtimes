@@ -84,4 +84,10 @@ class SeleniumWebDriver {
         return driver.findElement(By.tagName("body")).getText().contains(value)
     }
 
+    def click(name) {
+        def element = driver.findElement(name)
+        element.click()
+        sleep(1000)
+    }
+
 }

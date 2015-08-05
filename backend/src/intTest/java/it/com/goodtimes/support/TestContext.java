@@ -1,6 +1,7 @@
 package it.com.goodtimes.support;
 
 import com.goodtimes.events.EventsRepository;
+import com.goodtimes.users.UsersEventsRepository;
 import com.goodtimes.users.UsersRepository;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,11 @@ public class TestContext {
     @Bean
     public UsersRepository usersRepository() {
         return Mockito.mock(UsersRepository.class);
+    }
+
+    @Bean
+    public UsersEventsRepository usersEventsRepository() {
+        return Mockito.mock(UsersEventsRepository.class);
     }
 
 }

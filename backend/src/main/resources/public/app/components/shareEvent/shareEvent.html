@@ -1,0 +1,8 @@
+<form ng-controller="ShareEventCtrl as ctrl" ng-submit="ctrl.share()">
+    <div class="form-group">
+        <label for="share-email">Email</label>
+        <input type="text" class="form-control" id="share-email" name="share-email"
+               ng-model="ctrl.email" placeholder="Enter user email">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Invite">
+</form>

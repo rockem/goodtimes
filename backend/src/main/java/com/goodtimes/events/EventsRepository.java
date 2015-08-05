@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface EventsRepository extends MongoRepository<GoodtimeEvent, String> {
 
-    List<GoodtimeEvent> findAllByUserId(String userId);
 }

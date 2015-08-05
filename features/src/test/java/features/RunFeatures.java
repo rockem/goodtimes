@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @RunWith(Cucumber.class)
-//@CucumberOptions(tags="@wip")
+@CucumberOptions(tags="@wip")
 public class RunFeatures {
 
     public static final int SECOND = 1000;
@@ -25,10 +25,15 @@ public class RunFeatures {
 
     private static ExecutorService executor = Executors.newSingleThreadExecutor();
     private static ConfigurableApplicationContext backend;
-    private static Process process;
+    private static Process mongoDBProcess;
 
     @BeforeClass
     public static void startBackend() {
+        runMongoDB();
+        backend = SpringApplication.run(Application.class);
+    }
+
+    private static void runMongoDB() {
         createDirsForMongoDB();
         executor.submit(() -> {
             try {
@@ -44,7 +49,6 @@ public class RunFeatures {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        backend = SpringApplication.run(Application.class);
     }
 
     private static void createDirsForMongoDB() {
@@ -57,9 +61,9 @@ public class RunFeatures {
     }
 
     private static void runProcessFor(String... args) throws IOException {
-        process = new ProcessBuilder(args).start();
+        mongoDBProcess = new ProcessBuilder(args).start();
         BufferedReader br = new BufferedReader(
-                new InputStreamReader(process.getErrorStream()));
+                new InputStreamReader(mongoDBProcess.getErrorStream()));
         String line;
         Boolean error = false;
         while ((line = br.readLine()) != null) {
@@ -74,7 +78,7 @@ public class RunFeatures {
     @AfterClass
     public static void stopBackend() throws Exception {
         backend.close();
-        process.destroy();
+        mongoDBProcess.destroy();
         executor.shutdown();
     }
 

@@ -6,17 +6,22 @@ class GoodtimesWorld {
 
     SeleniumWebDriver browser = new SeleniumWebDriver()
 
-    static GoodtimesUser MY_USER = new GoodtimesUser(
-            username: "kuku",
+    GoodtimesUser MY_USER = new GoodtimesUser(
+            username: "me",
             password: "123456",
-            email: "k.k@gmail.com")
+            email: "m.m@gmail.com")
 
-    static GoodtimesUser OTHER_USER = new GoodtimesUser(
+    GoodtimesUser OTHER_USER = new GoodtimesUser(
             username: "popov",
             password: "123456",
             email: "p.p@walla.com")
 
-    static GoodtimesEvent DINNER_EVENT = new GoodtimesEvent(
+    GoodtimesUser KUKU_USER = new GoodtimesUser(
+            username: "kuku",
+            password: "123456",
+            email: "kuku@gmail.com")
+
+    GoodtimesEvent DINNER_EVENT = new GoodtimesEvent(
             name: "Kuku's dinner",
             description: "Dinner party for four"
     )

@@ -88,5 +88,18 @@ class GoodtimesClient {
         assert response.status == 201
     }
 
+    def login(GoodtimesUser user) {
+        def credentials = "${user.username}:${user.password}".bytes.encodeBase64().toString()
+        def response = client.get(
+                path: '/api/user',
+                headers: [Authorization: "Basic $credentials", "X-XSRF-TOKEN": this.xsrfToken]
+        )
+        assert response.status == 200
+    }
+
+    def getEvents() {
+        return client.get(path: '/api/events').data
+    }
+
 
 }

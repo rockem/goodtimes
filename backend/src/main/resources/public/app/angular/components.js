@@ -19,3 +19,7 @@ angular
 angular
     .module('goodtimesApp.eventDetails', ['goodtimesApp.eventService'])
     .controller('EventDetailsCtrl', EventDetailsCtrl);
+
+angular
+    .module('goodtimesApp.shareEvent', ['goodtimeApp.eventService'])
+    .controller('ShareEventCtrl', ShareEventCtrl);

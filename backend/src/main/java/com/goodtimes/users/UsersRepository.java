@@ -13,4 +13,5 @@ public interface UsersRepository extends MongoRepository<GoodtimesUser, String> 
 
     List<GoodtimesUser> removeByUsername(String username);
 
+    GoodtimesUser findByEmail(String email);
 }

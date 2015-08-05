@@ -1,4 +1,4 @@
-Feature: Email Login
+Feature: Login
 
   Scenario: Login with username/password
     Given I'm not logged in

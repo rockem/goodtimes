@@ -1,4 +1,9 @@
 <div ng-controller="EventDetailsCtrl as ctrl">
-    <h2>{{ctrl.event.name}}</h2>
-    {{ctrl.event.description}}
+    <div>
+        <h2>{{ctrl.event.name}}</h2>
+        {{ctrl.event.description}}
+    </div>
+    <div>
+        <a id="share-event" ng-href="/#/share/{{ctrl.event.id}}">Share event</a>
+    </div>
 </div>

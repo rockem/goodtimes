@@ -19,4 +19,12 @@ describe('Events Service', function () {
         expect(this.httpStub.data).toEqual(['someData']);
     });
 
+    it('should put share event', function() {
+        var email = "e@e.com";
+        var eventId = "23234";
+        this.service.shareEvent(eventId, email, this.callback);
+        expect(this.callback).toHaveBeenCalled();
+        expect(this.httpStub.data).toEqual([{email: email}]);
+    });
+
 });

@@ -15,6 +15,7 @@ function HttpStub() {
         this.data = data;
         return this.httpAction(url, headers);
     };
+    this.put = this.post;
 
     this.httpPromise = function (success, successArgs, errorArgs) {
         this.then = function (successCallback, failureCallback) {
@@ -25,4 +26,8 @@ function HttpStub() {
             }
         };
     };
+}
+
+function Location() {
+    this.path = jasmine.createSpy('path')
 }

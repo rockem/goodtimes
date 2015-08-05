@@ -12,9 +12,7 @@ describe("Login Controller", function () {
         };
         this.rootScope = {};
         this.scope = {};
-        this.location = new function() {
-            this.path = jasmine.createSpy('path')
-        };
+        this.location = new Location();
         this.ctrl = new LoginCtrl(this.authService, this.rootScope, this.scope, this.location);
     });
 

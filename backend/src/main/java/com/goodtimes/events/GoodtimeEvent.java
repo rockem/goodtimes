@@ -17,7 +17,6 @@ public class GoodtimeEvent {
     private String id;
     private String name;
     private String description;
-    private String userId;
 
     private GoodtimeEvent() {}
 
@@ -25,8 +24,7 @@ public class GoodtimeEvent {
         return new GoodtimeEvent(
                 id,
                 name,
-                description,
-                userId);
+                description);
     }
 
 }

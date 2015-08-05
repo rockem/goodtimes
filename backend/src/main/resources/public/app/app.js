@@ -18,5 +18,6 @@ angular
             .when('/event-list', {templateUrl: 'app/components/eventList/eventList.html'})
             .when('/create-event', {templateUrl: 'app/components/createEvent/createEvent.html'})
             .when('/event/:id', {templateUrl: 'app/components/eventDetails/eventDetails.html'})
+            .when('/share/:id', {templateUrl: 'app/components/shareEvent/shareEvent.html'})
             .otherwise({redirectTo: '/'});
     }]);

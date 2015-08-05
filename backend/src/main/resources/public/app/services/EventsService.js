@@ -1,11 +1,10 @@
 'use strict';
 
-
 function EventsApi($http) {
-    var EVENTS_PATH = '/api/events';
+    var EVENTS_PATH = '/api/events/';
 
     this.getEvent = function(id, callback) {
-        $http.get(EVENTS_PATH + '/' + id).then(function (response) {
+        $http.get(EVENTS_PATH + id).then(function (response) {
            callback(response.data);
         });
     };
@@ -20,6 +19,12 @@ function EventsApi($http) {
         $http.post(EVENTS_PATH, eventData).then(function() {
             callback();
         });
+    };
+
+    this.shareEvent = function(eventId, email, callback) {
+        $http.put(EVENTS_PATH + eventId + '/share', {'email': email}).then(function() {
+            callback();
+        })
     };
 }
 
