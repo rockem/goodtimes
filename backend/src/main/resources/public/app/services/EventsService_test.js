@@ -24,7 +24,7 @@ describe('Events Service', function () {
         var eventId = "23234";
         this.service.shareEvent(eventId, email, this.callback);
         expect(this.callback).toHaveBeenCalled();
-        expect(this.httpStub.data).toEqual([{email: email}]);
+        expect(this.httpStub.data).toEqual({email: email});
     });
 
 });
